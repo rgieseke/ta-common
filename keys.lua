@@ -15,11 +15,6 @@ keys.cao = { function ()
   local buffer = buffer
   if buffer.filename then
     _m.textadept.snapopen.open({ buffer.filename:match('(.+)/') })
-  else
-    local p = io.popen('pwd')
-    local pwd = p:read('*all')
-    p:close()
-    _m.textadept.snapopen.open({ pwd:sub(1, #pwd - 1) })
   end
 end }
 
