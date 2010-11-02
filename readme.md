@@ -3,12 +3,13 @@ Modules for Textadept
 
 Installation:
 
-Place in .textadept/modules/common
+Place all files in
+    .textadept/modules/common/
 
 Put
-require 'common'
+    require 'common'
 in your
-.textadept/init.lua
+    .textadept/init.lua
 
 License:
 MIT, see license.txt
