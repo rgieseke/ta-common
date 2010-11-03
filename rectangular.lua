@@ -1,5 +1,3 @@
-module('_.common.rectangular', package.seeall)
-
 -- Rectangular selection
 -- press alt r
 -- keep alt down and use arrow keys to select

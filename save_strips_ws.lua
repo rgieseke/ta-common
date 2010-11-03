@@ -1,7 +1,5 @@
-module('_m.common.save_strips_ws', package.seeall)
-
 -- Modified from Textadept's editing.lua to keep the caret position
--- when saving.
+-- when saving.  
 
 _m.textadept.editing.SAVE_STRIPS_WS = false
 
@@ -16,7 +14,7 @@ local function prepare_for_save()
   local current_line = buffer:line_from_position(buffer.current_pos)
   -- Strip trailing whitespace.
   local lines = buffer.line_count
-  for line = 0, lines - 1 do  
+  for line = 0, lines - 1 do
     if line ~= current_line then
       local s = buffer:position_from_line(line)
       local e = buffer.line_end_position[line]

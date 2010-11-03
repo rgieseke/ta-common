@@ -1,6 +1,9 @@
 -- Copyright (c) 2010 Brian Schott (Sir Alaran)
 -- see license.txt
 
+module('_m.common.findall', package.seeall)
+
+
 -- @return a table consisting of the start and end positions of the occurances
 -- of the word at the cursor position
 function findAllAtCursor()

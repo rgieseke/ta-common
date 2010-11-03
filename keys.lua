@@ -1,9 +1,7 @@
-module('.common.keys', package.seeall)
-
 -- Some additional key commands.
 
 local keys = _G.keys
-                        
+
 -- comments
 keys['c-'] = { _m.textadept.editing.block_comment }
 keys['c#'] = { _m.textadept.editing.block_comment }
