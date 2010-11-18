@@ -86,7 +86,7 @@ end
 -- occurances of the word at the cursor.
 function selectAll()
 	local startPosition = buffer.current_pos
-	local occurances = findAllAtCursor()
+	local occurances = _m.common.findall.findAllAtCursor()
 	local mainSel = 0
 	if #occurances > 1 then
 		for i, j in ipairs(occurances) do

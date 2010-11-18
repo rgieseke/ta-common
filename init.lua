@@ -7,4 +7,3 @@ for filename in lfs.dir(_USERHOME..'/modules/common/') do
     require('common.'..filename:match('^(.+)%.lua$'))
   end
 end
-
