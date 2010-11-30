@@ -14,8 +14,7 @@ events.connect('update_ui', function()
   local buffer = buffer
   local pos = buffer.current_pos
   if braces[buffer.char_at[pos - 1]] then pos = pos - 1 end
-  if braces[buffer.char_at[pos]] and
-    buffer:get_style_name(buffer.style_at[pos]) == 'operator' then
+  if braces[buffer.char_at[pos]] then
     local match_pos = buffer:brace_match(pos)
     if pos ~= -1 then
       buffer:brace_highlight(pos, match_pos)
