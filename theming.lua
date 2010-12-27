@@ -19,10 +19,9 @@ function set_buffer_properties()
     buffer:text_width(c.STYLE_LINENUMBER, '9')
 end
 
-local m_common = _m.common.theming
-events.connect('file_opened', m_common.set_buffer_properties)
-events.connect('buffer_new', m_common.set_buffer_properties)
-events.connect('view_new', m_common.set_buffer_properties)
+events.connect('file_opened', set_buffer_properties)
+events.connect('buffer_new', set_buffer_properties)
+events.connect('view_new', set_buffer_properties)
 events.connect('reset_after', function ()
   for i=1, #_VIEWS do
     gui.goto_view(1, false)
