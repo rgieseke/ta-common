@@ -12,7 +12,7 @@ keys.ct.u = { _m.textadept.snapopen.open, { _USERHOME } }
 keys.cao = { function ()
   local buffer = buffer
   if buffer.filename then
-    _m.textadept.snapopen.open({ buffer.filename:match('(.+)/') })
+    _m.textadept.snapopen.open({ buffer.filename:match('(.+)[/\\]') })
   end
 end }
 
