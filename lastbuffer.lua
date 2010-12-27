@@ -6,17 +6,16 @@ events.connect('buffer_before_switch',
   function()
     for index, b in ipairs(_BUFFERS) do
       if b == buffer then
-		last_buffer_index = index
+        last_buffer_index = index
         break
       end
-	end
-  end
-)
+    end
+  end)
 
 keys.cab = {
   function()
-    if _m.common.lastbuffer.last_buffer_index then
-      view:goto_buffer(_m.common.lastbuffer.last_buffer_index, true)
+    if last_buffer_index then
+      view:goto_buffer(last_buffer_index, true)
     end
    end
 }
