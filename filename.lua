@@ -19,5 +19,5 @@ function insert_filename()
   end
 end
 
-keys.caO = {insert_filename}
+keys.caO = { insert_filename }
 
