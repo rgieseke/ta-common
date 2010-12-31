@@ -1,5 +1,4 @@
--- Copyright (c) 2010 Brian Schott (Sir Alaran)
--- see license.txt
+-- Copyright (c) 2010 Brian Schott (Sir Alaran). See LICENSE.
 
 module('_m.common.findall', package.seeall)
 

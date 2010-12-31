@@ -1,18 +1,19 @@
-module('_m.common.display_filename', package.seeall)
-
--- Shortens filenames for switch buffer dialog and buffer titles.
+-- Copyright 2007-2010 Mitchell mitchell<att>caladbolg.net. See LICENSE.
+-- Modified from Textadept's core module by Robert Gieseke
 
 local L = _G.locale.localize
 
-local userhome = os.getenv(not WIN32 and 'HOME' or 'USERPROFILE')
+-- Shorten display filenames in buffer title and switch buffer dialog.
+-- On Windows
+-- `C:\Documents and Settings\username\Desktop\...`  is replaced with
+-- `Desktop\...`, on Max OS X and Linux
+-- `/home/username/...` or `/Users/username/...` with `~/...`.
+module('_m.common.display_filename', package.seeall)
 
 if WIN32 then
-  -- C:\Documents and Settings\username\Desktop\... -> Desktop\...
   pattern = os.getenv('USERPROFILE')..'\\'
   replacement = ''
 else
-  -- /home/username/... -> ~/...
-  -- /Users/username/... -> ~/...
   pattern = '^'..os.getenv('HOME')
   replacement = '~'
 end
@@ -27,7 +28,7 @@ local function set_title(buffer)
                             dirty, filename:gsub(pattern, replacement))
 end
 
--- Disconnect events that use events.lua's set_title
+-- Disconnect events that use set_title from core/gui.lua
 -- and reconnect with new set_title function
 local events = _G.events
 events.disconnect('save_point_reached', 1)
@@ -49,7 +50,7 @@ events.connect('buffer_after_switch',
   function() -- updates titlebar and statusbar
     set_title(buffer)
     events.emit('update_ui')
-  end, 3)
+  end)
 
 events.disconnect('view_after_switch', 2)
 events.connect('view_after_switch',
@@ -58,6 +59,8 @@ events.connect('view_after_switch',
     events.emit('update_ui')
   end, 2)
 
+-- Displays a dialog with a list of buffers to switch to and switches to the
+-- selected one, if any.
 function switch_buffer()
   local items = {}
   for _, buffer in ipairs(_BUFFERS) do
@@ -77,4 +80,8 @@ function switch_buffer()
   if ok == '1' then view:goto_buffer(tonumber(i) + 1, true) end
 end
 
-keys.cb = { switch_buffer }
+if OSX then
+  keys.ab = { switch_buffer }
+else
+  keys.cb = { switch_buffer }
+end

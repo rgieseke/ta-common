@@ -1,6 +1,4 @@
--- Copyright (c) 2010 Brian Schott (Sir Alaran)
-
--- see license.txt
+-- Copyright (c) 2010 Brian Schott (Sir Alaran). See LICENSE.
 
 -- The following buffer settings are required:
 -- buffer.multiple_selection = true
