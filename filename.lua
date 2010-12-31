@@ -15,7 +15,11 @@ function insert_filename()
   if filename then
     filename = filename:gsub('\n', '')
     filename = filename:gsub(current_dir, '')
-    buffer:add_text(filename)
+    if buffer:get_sel_text() == '' then
+      buffer:add_text(filename)
+    else
+      buffer:replace_sel(filename)
+    end
   end
 end
 
