@@ -11,7 +11,7 @@ local string_char = _G.string.char
 local m_editing = _m.textadept.editing
 
 function enclose_selection(left, right)
-  if buffer.get_sel_text() == '' then
+  if buffer:get_sel_text() == '' then
     return false
   else
     m_editing.enclose(left, right)
