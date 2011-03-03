@@ -16,7 +16,7 @@ events.connect('update_ui', function()
   if braces[buffer.char_at[pos - 1]] then pos = pos - 1 end
   if braces[buffer.char_at[pos]] then
     local match_pos = buffer:brace_match(pos)
-    if pos ~= -1 then
+    if match_pos ~= -1 then
       buffer:brace_highlight(pos, match_pos)
     else
       buffer:brace_bad_light(pos)
