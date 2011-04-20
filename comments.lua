@@ -1,3 +1,6 @@
+-- Adds comment strings. They can be overwritten in language modules.
+module('common.comments', package.seeall)
+
 _m.textadept.editing.comment_string = {
   actionscript = '// ',
   ada = '-- ',
@@ -8,6 +11,7 @@ _m.textadept.editing.comment_string = {
   awk = '# ',
   batch = ': ',
   boo = '# ',
+  coffeescript = '# ',
   cpp = '// ',
   csharp = '// ',
   dmd = '// ',
