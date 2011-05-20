@@ -1,5 +1,8 @@
 #!/bin/bash
-git mv docs/init.html docs/index.html
+cd ..
+locco.lua common/*.lua
+cd common
+mv docs/init.html docs/index.html
 sed -i 's/init.html/index.html/g' docs/*.html
 git add docs
 git commit -m 'Auto-update docs.'
