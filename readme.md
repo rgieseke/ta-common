@@ -16,10 +16,9 @@ Download a
 [zipped](https://github.com/rgieseke/textadept-common/zipball/master)
 version and save the contained directory as `.textadept/modules/common`
 or clone the git repository:
+
     cd ~/.textadept/modules
-    git clone \
-      https://github.com/rgieseke/textadept-common.git common
-The submodules can be used independently.
+    git clone https://github.com/rgieseke/textadept-common.git common
 
 Put
 
