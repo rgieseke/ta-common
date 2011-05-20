@@ -1,4 +1,5 @@
--- Some functions, key commands and modifications that change Textadept's
+-- Some functions, key commands and modifications that change
+-- [Textadept](http://code.google.com/p/textadept/)'s
 -- default behaviour.
 -- It contains modifications to Mitchell's Textadept modules, code from
 -- Brian Schott and others who posted to the mailing list or the
