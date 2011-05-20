@@ -1,15 +1,26 @@
--- Copyright 2007-2010 Mitchell mitchell<att>caladbolg.net. See LICENSE.
--- Modified from Textadept's core module by Robert Gieseke
+-- Shorten display filenames in buffer title and switch buffer dialog.
+-- On Windows
+--     C:\Documents and Settings\username\Desktop\...
+-- is replaced with
+--     Desktop\...,
+-- on Max OS X and Linux
+--     /home/username/..
+-- or
+--     /Users/username/...
+-- with
+--     ~/...
+--
+-- Modified from Textadept's
+-- [core.gui](http://code.google.com/p/textadept/source/browse/core/gui.lua) and
+-- [snapopen](http://code.google.com/p/textadept/source/browse/modules/textadept/snapopen.lua)
+-- module.
+module('_m.common.display_filename', package.seeall)
 
 local L = _G.locale.localize
 
--- Shorten display filenames in buffer title and switch buffer dialog.
--- On Windows
--- `C:\Documents and Settings\username\Desktop\...`  is replaced with
--- `Desktop\...`, on Max OS X and Linux
--- `/home/username/...` or `/Users/username/...` with `~/...`.
-module('_m.common.display_filename', package.seeall)
+-- ## Fields
 
+-- Read environment variable.
 if WIN32 then
   pattern = os.getenv('USERPROFILE')..'\\'
   replacement = ''
@@ -18,8 +29,11 @@ else
   replacement = '~'
 end
 
+-- ## Commands
+
 -- Sets the title of the Textadept window to the buffer's filename.
--- @param buffer The currently focused buffer.
+-- Parameter:<br>
+-- _buffer_: The currently focused buffer.
 local function set_title(buffer)
   local buffer = buffer
   local filename = buffer.filename or buffer._type or L('Untitled')
@@ -28,8 +42,8 @@ local function set_title(buffer)
                             dirty, filename:gsub(pattern, replacement))
 end
 
--- Disconnect events that use set_title from core/gui.lua
--- and reconnect with new set_title function
+-- Disconnect events that use `set_title` from `core/gui.lua`
+-- and reconnect with new `set_title` function
 local events = _G.events
 events.disconnect('save_point_reached', 1)
 events.connect('save_point_reached',
@@ -78,10 +92,4 @@ function switch_buffer()
                               '--items', items)
   local ok, i = response:match('(%-?%d+)\n(%d+)$')
   if ok == '1' then view:goto_buffer(tonumber(i) + 1, true) end
-end
-
-if OSX then
-  keys.ab = { switch_buffer }
-else
-  keys.cb = { switch_buffer }
 end

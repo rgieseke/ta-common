@@ -1,5 +1,9 @@
+-- Displays a filtered list of files in a project along with their current
+-- hg state or a standard snapopen dialog if hg is not used.
 module('_m.common.vc', package.seeall)
 
+-- Figure out the projects root and display states of the files in a
+-- snapopen dialog.
 function hg_status()
   local path = buffer.filename:match('(.+)/')
   local command = 'cd '..path..'; hg root 2>&1'
@@ -35,8 +39,3 @@ function hg_status()
     end
   end
 end
-
-keys.cap = { function()
-  if buffer.filename then _m.common.vc.hg_status( ) end
-end}
-

@@ -1,15 +1,25 @@
+-- Highlight and match braces before and after a brace.
+-- Modified from
+-- [Textadept's editing.lua](http://code.google.com/p/textadept/source/browse/modules/textadept/editing.lua).
+-- Textadept's default is to only match the brace to the right which can be
+-- preferable if a block caret is used.
 module('_m.common.bracematching', package.seeall)
--- Modified from Textadept's editing.lua
 
--- Disable default highlighting of matching braces
+-- ## Setup
+
+-- Disable default highlighting of matching braces.
 _m.textadept.editing.HIGHLIGHT_BRACES = false
 
+-- Table with char codes as indices.
 braces = { -- () [] {}
   [40] = 1, [91] = 1, [123] = 1,
   [41] = 1, [93] = 1, [125] = 1,
 }
 
--- highlights matching braces, before and after a brace
+-- ## Commands
+
+-- Highlights matching braces, before and after a brace.
+-- Between two braces preference is to the left.
 events.connect('update_ui', function()
   local buffer = buffer
   local pos = buffer.current_pos
@@ -26,9 +36,9 @@ events.connect('update_ui', function()
   end
 end)
 
----
--- Goes to a matching brace position, selecting the text inside if specified.
--- @param select If true, selects the text between matching braces.
+-- Goes to a matching brace position, selecting the text inside if specified.<br>
+-- Parameter:<br>
+-- _select_: If true, selects the text between matching braces.
 function match_brace(select)
   local buffer = buffer
   local caret = buffer.current_pos
@@ -48,5 +58,3 @@ function match_brace(select)
     end
   end
 end
-
-keys.ce = { _m.common.bracematching.match_brace }

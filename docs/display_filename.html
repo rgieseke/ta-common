@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>common/display_filename.lua</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="locco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    <div id="jump_to">
+  Jump To &hellip;
+  <div id="jump_wrapper">
+  <div id="jump_page">
+  <a class="source" href="ack.html">common/ack.lua</a>
+  <a class="source" href="bracematching.html">common/bracematching.lua</a>
+  <a class="source" href="comments.html">common/comments.lua</a>
+  <a class="source" href="ctags.html">common/ctags.lua</a>
+  <a class="source" href="display_filename.html">common/display_filename.lua</a>
+  <a class="source" href="enclose.html">common/enclose.lua</a>
+  <a class="source" href="filename.html">common/filename.lua</a>
+  <a class="source" href="findall.html">common/findall.lua</a>
+  <a class="source" href="init.html">common/init.lua</a>
+  <a class="source" href="lastbuffer.html">common/lastbuffer.lua</a>
+  <a class="source" href="luaonly.html">common/luaonly.lua</a>
+  <a class="source" href="multiedit.html">common/multiedit.lua</a>
+  <a class="source" href="project.html">common/project.lua</a>
+  <a class="source" href="save_strips_ws.html">common/save_strips_ws.lua</a>
+  <a class="source" href="theming.html">common/theming.lua</a>
+  <a class="source" href="vc.html">common/vc.lua</a>
+    </div>
+  </div>
+</div>
+
+    <table cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+          <th class="docs">
+            <h1>
+              common/display_filename.lua
+            </h1>
+          </th>
+          <th class="code">
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+<tr id="section-1">
+<td class="docs">
+  <div class="pilwrap">
+    <a class="pilcrow" href="#section-1">&#182;</a>
+  </div>
+  
+<p>Shorten display filenames in buffer title and switch buffer dialog.
+On Windows</p>
+<pre><code>C:\Documents and Settings\username\Desktop\...
+</code></pre>
+<p>is replaced with</p>
+<pre><code>Desktop\...,
+</code></pre>
+<p>on Max OS X and Linux</p>
+<pre><code>/home/username/..
+</code></pre>
+<p>or</p>
+<pre><code>/Users/username/...
+</code></pre>
+<p>with</p>
+<pre><code>~/...
+</code></pre>
+
+<p>Modified from Textadept's
+<a href="http://code.google.com/p/textadept/source/browse/core/gui.lua">core.gui</a> and
+<a href="http://code.google.com/p/textadept/source/browse/modules/textadept/snapopen.lua">snapopen</a>
+module.</p>
+
+
+</td>
+<td class="code">
+  <div class="highlight"><pre><span class="nt">module</span>(<span class="s">'_m.common.display_filename'</span>, package.seeall)
+
+<span class="k">local</span> L = _G.locale.localize
+</pre></div>
+</td>
+</tr><tr id="section-2">
+<td class="docs">
+  <div class="pilwrap">
+    <a class="pilcrow" href="#section-2">&#182;</a>
+  </div>
+  
+<h2>Fields</h2>
+
+
+</td>
+<td class="code">
+  <div class="highlight"><pre>
+</pre></div>
+</td>
+</tr><tr id="section-3">
+<td class="docs">
+  <div class="pilwrap">
+    <a class="pilcrow" href="#section-3">&#182;</a>
+  </div>
+  
+<p>Read environment variable.</p>
+
+
+</td>
+<td class="code">
+  <div class="highlight"><pre><span class="k">if</span> WIN32 <span class="k">then</span>
+  pattern = os.getenv(<span class="s">'USERPROFILE'</span>)..<span class="s">'\\'</span>
+  replacement = <span class="s">''</span>
+<span class="k">else</span>
+  pattern = <span class="s">'^'</span>..os.getenv(<span class="s">'HOME'</span>)
+  replacement = <span class="s">'~'</span>
+<span class="k">end</span>
+</pre></div>
+</td>
+</tr><tr id="section-4">
+<td class="docs">
+  <div class="pilwrap">
+    <a class="pilcrow" href="#section-4">&#182;</a>
+  </div>
+  
+<h2>Commands</h2>
+
+
+</td>
+<td class="code">
+  <div class="highlight"><pre>
+</pre></div>
+</td>
+</tr><tr id="section-5">
+<td class="docs">
+  <div class="pilwrap">
+    <a class="pilcrow" href="#section-5">&#182;</a>
+  </div>
+  
+<p>Sets the title of the Textadept window to the buffer's filename.
+Parameter:<br>
+<em>buffer</em>: The currently focused buffer.</p>
+
+
+</td>
+<td class="code">
+  <div class="highlight"><pre><span class="k">local</span> <span class="k">function</span> <span class="nf">set_title</span>(buffer)
+  <span class="k">local</span> buffer = buffer
+  <span class="k">local</span> filename = buffer.filename <span class="o">or</span> buffer._<span class="nt">type</span> <span class="o">or</span> L(<span class="s">'Untitled'</span>)
+  <span class="k">local</span> dirty = buffer.dirty <span class="o">and</span> <span class="s">'*'</span> <span class="o">or</span> <span class="s">'-'</span>
+  gui.title = string.format(<span class="s">'&#37;s &#37;s Textadept (&#37;s)'</span>, filename:match(<span class="s">'[^/\\]+$'</span>),
+                            dirty, filename:gsub(pattern, replacement))
+<span class="k">end</span>
+</pre></div>
+</td>
+</tr><tr id="section-6">
+<td class="docs">
+  <div class="pilwrap">
+    <a class="pilcrow" href="#section-6">&#182;</a>
+  </div>
+  
+<p>Disconnect events that use <code>set_title</code> from <code>core/gui.lua</code>
+and reconnect with new <code>set_title</code> function</p>
+
+
+</td>
+<td class="code">
+  <div class="highlight"><pre><span class="k">local</span> events = _G.events
+events.disconnect(<span class="s">'save_point_reached'</span>, 1)
+events.connect(<span class="s">'save_point_reached'</span>,
+  <span class="k">function</span>() <span class="c">-- changes Textadept title to show 'clean' buffer
+</span>    buffer.dirty = <span class="k">false</span>
+    set_title(buffer)
+  <span class="k">end</span>)
+
+events.disconnect(<span class="s">'save_point_left'</span>, 1)
+events.connect(<span class="s">'save_point_left'</span>,
+  <span class="k">function</span>() <span class="c">-- changes Textadept title to show 'dirty' buffer
+</span>    buffer.dirty = <span class="k">true</span>
+    set_title(buffer)
+  <span class="k">end</span>)
+
+events.disconnect(<span class="s">'buffer_after_switch'</span>, 3)
+events.connect(<span class="s">'buffer_after_switch'</span>,
+  <span class="k">function</span>() <span class="c">-- updates titlebar and statusbar
+</span>    set_title(buffer)
+    events.emit(<span class="s">'update_ui'</span>)
+  <span class="k">end</span>)
+
+events.disconnect(<span class="s">'view_after_switch'</span>, 2)
+events.connect(<span class="s">'view_after_switch'</span>,
+  <span class="k">function</span>() <span class="c">-- updates titlebar and statusbar
+</span>    set_title(buffer)
+    events.emit(<span class="s">'update_ui'</span>)
+  <span class="k">end</span>, 2)
+</pre></div>
+</td>
+</tr><tr id="section-7">
+<td class="docs">
+  <div class="pilwrap">
+    <a class="pilcrow" href="#section-7">&#182;</a>
+  </div>
+  
+<p>Displays a dialog with a list of buffers to switch to and switches to the
+selected one, if any.</p>
+
+
+</td>
+<td class="code">
+  <div class="highlight"><pre><span class="k">function</span> <span class="nf">switch_buffer</span>()
+  <span class="k">local</span> items = {}
+  <span class="k">for</span> _, buffer <span class="k">in</span> <span class="nt">ipairs</span>(_BUFFERS) <span class="k">do</span>
+    <span class="k">local</span> filename = buffer.filename <span class="o">or</span> buffer._<span class="nt">type</span> <span class="o">or</span> L(<span class="s">'Untitled'</span>)
+    <span class="k">local</span> dirty = buffer.dirty <span class="o">and</span> <span class="s">'*'</span> <span class="o">or</span> <span class="s">''</span>
+    items[#items + 1] = dirty..filename:match(<span class="s">'[^/\\]+$'</span>)
+    items[#items + 1] = filename:gsub(pattern, replacement)
+  <span class="k">end</span>
+  <span class="k">local</span> response = gui.dialog(<span class="s">'filteredlist'</span>,
+                              <span class="s">'--title'</span>, L(<span class="s">'Switch Buffers'</span>),
+                              <span class="s">'--button1'</span>, <span class="s">'gtk-ok'</span>,
+                              <span class="s">'--button2'</span>, <span class="s">'gtk-cancel'</span>,
+                              <span class="s">'--no-newline'</span>,
+                              <span class="s">'--columns'</span>, <span class="s">'Name'</span>, <span class="s">'File'</span>,
+                              <span class="s">'--items'</span>, items)
+  <span class="k">local</span> ok, i = response:match(<span class="s">'(&#37;-?&#37;d+)\n(&#37;d+)$'</span>)
+  <span class="k">if</span> ok == <span class="s">'1'</span> <span class="k">then</span> view:goto_buffer(<span class="nt">tonumber</span>(i) + 1, <span class="k">true</span>) <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody>
+    </table>
+  </div>
+</body>
+</html>

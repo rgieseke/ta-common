@@ -1,15 +1,26 @@
+-- This module adds functions for enclosing selections with a single key
+-- and for inserting single chars with a short cut.
 module('_m.common.enclose', package.seeall)
 
--- Enables
--- enclosing a selection by typing (,[,{,',",
--- enclosing a selection and keeping the selection (Ctrl-Key),
--- for adding more braces and
--- inserting a single enclosure (Ctrl-Key).
-
+-- ## Setup
 local events = _G.events
-local string_char = _G.string.char
 local m_editing = _m.textadept.editing
+local keys = _G.keys
+local string_char = _G.string.char
 
+-- Table with char codes as indices.
+braces = { -- () [] {}
+  [40] = 1, [91] = 1, [123] = 1,
+  [41] = 1, [93] = 1, [125] = 1,
+}
+
+
+-- ## Commands
+
+-- Enclose selected text.<br>
+-- Parameters:<br>
+-- _left_: char on the left<br>
+-- _right_: char on the right
 function enclose_selection(left, right)
   if buffer:get_sel_text() == '' then
     return false
@@ -18,6 +29,12 @@ function enclose_selection(left, right)
   end
 end
 
+-- Encloses selected text and keeps the selection for another enclosure.
+-- If nothing is selected, the char is inserted. Useful to avoid automatically
+-- matched braces.<br>
+-- Parameters:<br>
+-- _left_: char on the left<br>
+-- _right_: char on the right
 function paste_or_grow_enclose (left, right)
   if buffer:get_sel_text() == '' then
     buffer:add_text(left)
@@ -34,16 +51,3 @@ function paste_or_grow_enclose (left, right)
     buffer:set_sel(start, stop + add_start + add_stop)
   end
 end
-
-local keys = _G.keys
-keys["'"] = { enclose_selection, "'", "'" }
-keys['"'] = { enclose_selection, '"', '"' }
-keys['('] = { enclose_selection, '(', ')' }
-keys['['] = { enclose_selection, '[', ']' }
-keys['{'] = { enclose_selection, '{', '}' }
-
-keys["c'"] = { paste_or_grow_enclose, "'", "'" }
-keys['c"'] = { paste_or_grow_enclose, '"', '"' }
-keys['c('] = { paste_or_grow_enclose, '(', ')' }
-keys['c['] = { paste_or_grow_enclose, '[', ']' }
-keys['c{'] = { paste_or_grow_enclose, '{', '}' }

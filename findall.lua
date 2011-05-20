@@ -1,12 +1,14 @@
--- Copyright (c) 2010 Brian Schott (Sir Alaran). See LICENSE.
-
+-- Finds occurences of word under the cursor.<br>
+-- Copyright (c) 2010 [Brian Schott (Sir Alaran)](http://caladbolg.net/textadeptwiki/index.php?n=Main.Multiedit).<br>
+-- License: [MIT](http://www.opensource.org/licenses/mit-license.php).
 module('_m.common.findall', package.seeall)
 
+-- ## Commands
 
--- @return a table consisting of the start and end positions of the occurences
+-- Returns a table consisting of the start and end positions of the occurences
 -- of the word at the cursor position
-function findAllAtCursor()
-  local retVal = {}
+function find_all_at_cursor()
+  local ret_val = {}
   local position = buffer.current_pos
   -- Grab the word at the current position
   buffer:word_left()
@@ -28,7 +30,7 @@ function findAllAtCursor()
             if (first ~= nil) and (first >0) then
               first = first - 1
             end
-            table.insert(retVal, {buffer:position_from_line(i) + first,
+            table.insert(ret_val, {buffer:position_from_line(i) + first,
                                   buffer:position_from_line(i) + last})
             last = last + 1
           end
@@ -37,5 +39,5 @@ function findAllAtCursor()
     end
   end
   buffer:set_sel(position, position)
-  return retVal
+  return ret_val
 end

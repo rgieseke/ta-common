@@ -1,17 +1,22 @@
--- Copyright (c) 2010 Brian Schott (Sir Alaran). See LICENSE.
-
+-- Keyboard short cuts for adding multiple cursors.<br>
+-- Copyright (c) 2010 [Brian Schott (Sir Alaran)](http://caladbolg.net/textadeptwiki/index.php?n=Main.Multiedit).<br>
+-- License: [MIT](http://www.opensource.org/licenses/mit-license.php).
+--
 -- The following buffer settings are required:
--- buffer.multiple_selection = true
--- buffer.additional_selection_typing = true
--- buffer.additional_carets_visible = true
-
+--     buffer.multiple_selection = true
+--     buffer.additional_selection_typing = true
+--     buffer.additional_carets_visible = true
 module('_m.common.multiedit', package.seeall)
 require 'common.findall'
+
+-- ## Setup
 
 local positions = {}
 local restore = false
 
--- Adds a single mark
+-- ## Commands
+
+-- Adds a single mark.
 function add_position()
   table.insert(positions, buffer.current_pos)
   buffer:add_selection(buffer.current_pos, buffer.current_pos)
@@ -37,73 +42,32 @@ function set_cursor_positions()
   end
 end
 
--- Adds multiple marks, starting with the first mark in the list
--- and continuing to the current line. This function will try to match
--- the column of the initial mark. If a is not long enough for this to
--- work, the line is skipped
-function add_multiple()
-  -- Bail out if there is no starting marker set
-  if #positions == 0 then
-    return
-  end
-
-  local startLine = buffer:line_from_position(positions[1])
-  local startCol = buffer.column[positions[1]]
-
-  -- Current line and position
-  local endLine = buffer:line_from_position(buffer.current_pos)
-
-  -- Cursor is reset here later
-  local resetPos = buffer.current_pos
-
-  if startLine > endLine then
-    startLine, endLine = endLine, startLine
-  end
-
-  for i = startLine + 1, endLine - 1 do
-    buffer:goto_line(i)
-    -- true if we're going to put a caret on this line
-    local useLine = true
-    while buffer.column[buffer.current_pos] < startCol and useLine do
-      if buffer.current_pos == buffer.line_end_position[i] then
-        -- Hit the end of the line before reaching the column we wanted.
-        -- Give up.
-        useLine = false
-      end
-      buffer:char_right()
-    end
-    if useLine then
-      add_position()
-    end
-  end
-  buffer:add_selection(resetPos, resetPos)
-end
-
--- Multi-select all occurances of the word at the cursor position. This acts as
--- a very fast find-replace function. Use with caution, as this selects ALL
--- occurances of the word at the cursor.
-function selectAll()
-  local startPosition = buffer.current_pos
-  local occurances = _m.common.findall.findAllAtCursor()
-  local mainSel = 0
-  if #occurances > 1 then
-    for i, j in ipairs(occurances) do
-      if j[1] > startPosition or j[2] < startPosition then
+-- Multi-select all occurences of the word at the cursor position. This acts as
+-- a very fast find-replace function. Use with caution, as this selects all
+-- occurences of the word at the cursor.
+function select_all()
+  local start_position = buffer.current_pos
+  local occurences = _m.common.findall.find_all_at_cursor()
+  local main_sel = 0
+  if #occurences > 1 then
+    for i, j in ipairs(occurences) do
+      if j[1] > start_position or j[2] < start_position then
         buffer:add_selection(j[1], j[2])
       else
-        mainSel = i
+        main_sel = i
       end
     end
-    buffer:add_selection(occurances[mainSel][1], occurances[mainSel][2])
-    while buffer.selection_start > startPosition
-        or buffer.selection_end < startPosition do
+    buffer:add_selection(occurences[main_sel][1], occurences[main_sel][2])
+    while buffer.selection_start > start_position
+        or buffer.selection_end < start_position do
       buffer:rotate_selection()
     end
-  elseif #occurances == 1 then
-    buffer:set_selection(occurances[1][1], occurances[1][2])
+  elseif #occurences == 1 then
+    buffer:set_selection(occurences[1][1], occurences[1][2])
   end
 end
 
+-- Cancel selections on `Esc` key press.
 events.connect('keypress',
   function(code, shift, control, alt)
     if code == 0xff1b then -- Escape key
@@ -128,9 +92,3 @@ events.connect('char_added',
     return
   end
 )
-
-local keys = _G.keys
-
-keys.cj = { add_position }
-keys.cJ = { add_multiple }
-keys.caj = { selectAll }
