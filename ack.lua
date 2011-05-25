@@ -30,8 +30,8 @@ local buffer_type = L('[Files Found Buffer]')
 -- is active run the search after pressing enter.
 events.connect('command_entry_command',
   function(text)
-    local search_dir = _m.common.project.root()
     if ack_search then
+      local search_dir = _m.common.project.root()
       gui.command_entry.focus()
       local command = 'ack '..OPTIONS..text
       local p = io.popen(command..' '..search_dir..' 2>&1')
@@ -44,6 +44,7 @@ events.connect('command_entry_command',
       return true
     end
     if textadept_find_in_files then
+      local search_dir = _m.common.project.root()
       gui.command_entry.focus()
       gui.find.find_entry_text = text
       gui.find.find_in_files(search_dir)
