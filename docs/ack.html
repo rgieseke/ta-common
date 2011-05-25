@@ -29,6 +29,7 @@
   <a class="source" href="save_strips_ws.html">common/save_strips_ws.lua</a>
   <a class="source" href="theming.html">common/theming.lua</a>
   <a class="source" href="vc.html">common/vc.lua</a>
+  <a class="source" href="wrap.html">common/wrap.lua</a>
     </div>
   </div>
 </div>
@@ -161,8 +162,8 @@ is active run the search after pressing enter.</p>
 <td class="code">
   <div class="highlight"><pre>events.connect(<span class="s">'command_entry_command'</span>,
   <span class="k">function</span>(text)
-    <span class="k">local</span> search_dir = _m.common.project.root()
     <span class="k">if</span> ack_search <span class="k">then</span>
+      <span class="k">local</span> search_dir = _m.common.project.root()
       gui.command_entry.focus()
       <span class="k">local</span> command = <span class="s">'ack '</span>..OPTIONS..text
       <span class="k">local</span> p = io.popen(command..<span class="s">' '</span>..search_dir..<span class="s">' 2&gt;&1'</span>)
@@ -175,6 +176,7 @@ is active run the search after pressing enter.</p>
       <span class="k">return</span> <span class="k">true</span>
     <span class="k">end</span>
     <span class="k">if</span> textadept_find_in_files <span class="k">then</span>
+      <span class="k">local</span> search_dir = _m.common.project.root()
       gui.command_entry.focus()
       gui.find.find_entry_text = text
       gui.find.find_in_files(search_dir)
