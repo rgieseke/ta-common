@@ -15,8 +15,7 @@
 -- version and save the contained directory as `.textadept/modules/common`
 -- or clone the git repository:
 --     cd ~/.textadept/modules
---     git clone \
---       https://github.com/rgieseke/ta-common.git common
+--     git clone https://github.com/rgieseke/ta-common.git common
 -- Put
 --     require 'common'
 -- in your `.textadept/init.lua`.<br>

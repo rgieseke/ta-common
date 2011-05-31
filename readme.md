@@ -13,12 +13,12 @@ Installation
 ============
 
 Download a
-[zipped](https://github.com/rgieseke/textadept-common/zipball/master)
+[zipped](https://github.com/rgieseke/ta-common/zipball/master)
 version and save the contained directory as `.textadept/modules/common`
 or clone the git repository:
 
     cd ~/.textadept/modules
-    git clone https://github.com/rgieseke/textadept-common.git common
+    git clone https://github.com/rgieseke/ta-common.git common
 
 Put
 
@@ -26,4 +26,4 @@ Put
 
 in your `.textadept/init.lua`
 
-See also the annotated source: <http://rgieseke.github.com/textadept-common>
+See also the annotated source: <http://rgieseke.github.com/ta-common>
