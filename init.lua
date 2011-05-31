@@ -5,18 +5,18 @@
 -- Brian Schott and others who posted to the mailing list or the
 -- [Textadept wiki](http://caladbolg.net/textadeptwiki/).<br>
 -- The source is on
--- [GitHub](https://github.com/rgieseke/textadept-common),
+-- [GitHub](https://github.com/rgieseke/ta-common),
 -- released under the
 -- [MIT license](http://www.opensource.org/licenses/mit-license.php).
 --
 -- ## Installation
 -- Download a
--- [zipped](https://github.com/rgieseke/textadept-common/zipball/master)
+-- [zipped](https://github.com/rgieseke/ta-common/zipball/master)
 -- version and save the contained directory as `.textadept/modules/common`
 -- or clone the git repository:
 --     cd ~/.textadept/modules
 --     git clone \
---       https://github.com/rgieseke/textadept-common.git common
+--       https://github.com/rgieseke/ta-common.git common
 -- Put
 --     require 'common'
 -- in your `.textadept/init.lua`.<br>
