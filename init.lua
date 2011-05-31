@@ -3,7 +3,9 @@
 -- default behaviour.
 -- It contains modifications to Mitchell's Textadept modules, code from
 -- Brian Schott and others who posted to the mailing list or the
--- [Textadept wiki](http://caladbolg.net/textadeptwiki/).<br>
+-- [Textadept wiki](http://caladbolg.net/textadeptwiki/).
+-- Otherwise it is written and maintained by
+-- [Robert Gieseke](https://github.com/rgieseke).<br>
 -- The source is on
 -- [GitHub](https://github.com/rgieseke/ta-common),
 -- released under the
