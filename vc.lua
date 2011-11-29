@@ -5,8 +5,15 @@ module('_m.common.vc', package.seeall)
 -- Figure out the projects root and display states of the files in a
 -- snapopen dialog.
 function hg_status()
-  local path = buffer.filename:match('(.+)/')
-  local command = 'cd '..path..'; hg root 2>&1'
+--  local path = buffer.filename:match('(.+)/')
+  local path = buffer.filename:match('(.+)[/\\]')
+  local cd_path
+  if WIN32 then
+    cd_path = 'cd /d '..path
+  else
+    cd_path = 'cd '..path
+  end
+  local command = cd_path..'" && hg root 2>&1'
   local f = io.popen(command)
   local ans = f:read("*a")
   f:close()
@@ -14,13 +21,13 @@ function hg_status()
      _m.textadept.snapopen.open({path})
   else
     local hg_root = ans:sub(1,-2)
-    command = 'cd '..path..'; hg st -amdcu 2>&1'
+    command = cd_path..' && hg st -amdcu 2>&1'
     f = io.popen(command)
     local status = f:read("*a")
     f:close()
     local items =  {}
     local fstatus, fname
-    for fstatus, fname in string.gmatch(status, "([AMDC\?])%s([%w\.]+)[\n]") do
+    for fstatus, fname in string.gmatch(status, "([AMDC\?])%s([%w\\%.]+)\r?\n") do
       items[#items+1] = fname
       items[#items+1] = fstatus
     end
