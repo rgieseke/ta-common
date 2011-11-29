@@ -5,7 +5,6 @@ module('_m.common.vc', package.seeall)
 -- Figure out the projects root and display states of the files in a
 -- snapopen dialog.
 function hg_status()
---  local path = buffer.filename:match('(.+)/')
   local path = buffer.filename:match('(.+)[/\\]')
   local cd_path
   if WIN32 then
