@@ -17,27 +17,27 @@
 --
 -- Written by
 -- [Mitchell](http://caladbolg.net/textadeptwiki/index.php?n=Main.Gotosymbol).
-module('_m.common.ctags', package.seeall)
+local M = {}
 
 -- ## Fields
 
 -- Path and options for the ctags utility can be defined in the `CTAGS`
 -- field.
 if WIN32 then
-  CTAGS = '"c:\\program files\\ctags\\ctags.exe" --sort=yes --fields=+K-f'
+  M.CTAGS = '"c:\\program files\\ctags\\ctags.exe" --sort=yes --fields=+K-f'
 else
-  CTAGS = 'ctags --sort=yes --fields=+K-f'
+  M.CTAGS = 'ctags --sort=yes --fields=+K-f'
 end
 
 -- ## Commands
 
 -- Goes to the selected symbol in a filtered list dialog.
 -- Requires [ctags]((http://ctags.sourceforge.net/)) to be installed.
-function goto_symbol()
+function M.goto_symbol()
   local buffer = buffer
   if not buffer.filename then return end
   local symbols = {}
-  local p = io.popen(CTAGS..' --excmd=number -f - "'..buffer.filename..'"')
+  local p = io.popen(M.CTAGS..' --excmd=number -f - "'..buffer.filename..'"')
   for line in p:read('*all'):gmatch('[^\r\n]+') do
     local name, line, ext = line:match('^(%S+)\t[^\t]+\t([^;]+);"\t(.+)$')
     if name and line and ext then
@@ -57,7 +57,12 @@ function goto_symbol()
                                 '--output-column', '3',
                                 '--items', symbols)
     local ok, line = response:match('(%S+)\n(%d+)$')
-    if ok == 'gtk-ok' then buffer:goto_line(tonumber(line) - 1) end
+    if ok == 'gtk-ok' then
+      buffer:goto_line(tonumber(line) - 1)
+      buffer:vertical_centre_caret()
+    end
   end
   p:close()
 end
+
+return M

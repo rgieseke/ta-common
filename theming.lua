@@ -1,5 +1,4 @@
 -- Some additional theming, independent of the selected theme.
-module('_m.common.theming', package.seeall)
 
 -- See also the themes'
 -- [buffer.lua](http://code.google.com/p/textadept/source/browse/themes/light/buffer.lua)
@@ -30,8 +29,7 @@ events.connect('buffer_new', set_buffer_properties)
 events.connect('view_new', set_buffer_properties)
 events.connect('reset_after', function ()
   for i=1, #_VIEWS do
-    gui.goto_view(1, false)
-    view:focus()
+    gui.goto_view(1, true)
     set_buffer_properties()
   end
 end)
