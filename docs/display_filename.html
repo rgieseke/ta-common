@@ -23,13 +23,11 @@
   <a class="source" href="findall.html">common/findall.lua</a>
   <a class="source" href="index.html">common/init.lua</a>
   <a class="source" href="lastbuffer.html">common/lastbuffer.lua</a>
-  <a class="source" href="luaonly.html">common/luaonly.lua</a>
   <a class="source" href="multiedit.html">common/multiedit.lua</a>
   <a class="source" href="project.html">common/project.lua</a>
   <a class="source" href="save_strips_ws.html">common/save_strips_ws.lua</a>
   <a class="source" href="theming.html">common/theming.lua</a>
   <a class="source" href="vc.html">common/vc.lua</a>
-  <a class="source" href="wrap.html">common/wrap.lua</a>
     </div>
   </div>
 </div>
@@ -78,9 +76,7 @@ module.</p>
 
 </td>
 <td class="code">
-  <div class="highlight"><pre><span class="nt">module</span>(<span class="s">'_m.common.display_filename'</span>, package.seeall)
-
-<span class="k">local</span> L = _G.locale.localize
+  <div class="highlight"><pre><span class="k">local</span> M = {}
 </pre></div>
 </td>
 </tr><tr id="section-2">
@@ -95,6 +91,7 @@ module.</p>
 </td>
 <td class="code">
   <div class="highlight"><pre>
+<span class="k">local</span> pattern, replacement
 </pre></div>
 </td>
 </tr><tr id="section-3">
@@ -146,7 +143,7 @@ Parameter:<br>
 <td class="code">
   <div class="highlight"><pre><span class="k">local</span> <span class="k">function</span> <span class="nf">set_title</span>(buffer)
   <span class="k">local</span> buffer = buffer
-  <span class="k">local</span> filename = buffer.filename <span class="o">or</span> buffer._<span class="nt">type</span> <span class="o">or</span> L(<span class="s">'Untitled'</span>)
+  <span class="k">local</span> filename = buffer.filename <span class="o">or</span> buffer._<span class="nt">type</span> <span class="o">or</span> _L[<span class="s">'Untitled'</span>]
   <span class="k">local</span> dirty = buffer.dirty <span class="o">and</span> <span class="s">'*'</span> <span class="o">or</span> <span class="s">'-'</span>
   gui.title = string.format(<span class="s">'&#37;s &#37;s Textadept (&#37;s)'</span>, filename:match(<span class="s">'[^/\\]+$'</span>),
                             dirty, filename:gsub(pattern, replacement))
@@ -207,24 +204,26 @@ selected one, if any.</p>
 
 </td>
 <td class="code">
-  <div class="highlight"><pre><span class="k">function</span> <span class="nf">switch_buffer</span>()
+  <div class="highlight"><pre><span class="k">function</span> <span class="nf">M.switch_buffer</span>()
   <span class="k">local</span> items = {}
   <span class="k">for</span> _, buffer <span class="k">in</span> <span class="nt">ipairs</span>(_BUFFERS) <span class="k">do</span>
-    <span class="k">local</span> filename = buffer.filename <span class="o">or</span> buffer._<span class="nt">type</span> <span class="o">or</span> L(<span class="s">'Untitled'</span>)
+    <span class="k">local</span> filename = buffer.filename <span class="o">or</span> buffer._<span class="nt">type</span> <span class="o">or</span> _L[<span class="s">'Untitled'</span>]
     <span class="k">local</span> dirty = buffer.dirty <span class="o">and</span> <span class="s">'*'</span> <span class="o">or</span> <span class="s">''</span>
     items[#items + 1] = dirty..filename:match(<span class="s">'[^/\\]+$'</span>)
     items[#items + 1] = filename:gsub(pattern, replacement)
   <span class="k">end</span>
   <span class="k">local</span> response = gui.dialog(<span class="s">'filteredlist'</span>,
-                              <span class="s">'--title'</span>, L(<span class="s">'Switch Buffers'</span>),
+                              <span class="s">'--title'</span>, __L[<span class="s">'Switch Buffers'</span>],
                               <span class="s">'--button1'</span>, <span class="s">'gtk-ok'</span>,
                               <span class="s">'--button2'</span>, <span class="s">'gtk-cancel'</span>,
                               <span class="s">'--no-newline'</span>,
                               <span class="s">'--columns'</span>, <span class="s">'Name'</span>, <span class="s">'File'</span>,
                               <span class="s">'--items'</span>, items)
   <span class="k">local</span> ok, i = response:match(<span class="s">'(&#37;-?&#37;d+)\n(&#37;d+)$'</span>)
-  <span class="k">if</span> ok == <span class="s">'1'</span> <span class="k">then</span> view:goto_buffer(<span class="nt">tonumber</span>(i) + 1, <span class="k">true</span>) <span class="k">end</span>
+  <span class="k">if</span> ok == <span class="s">'1'</span> <span class="k">then</span> view:goto_buffer(<span class="nt">tonumber</span>(i) + 1) <span class="k">end</span>
 <span class="k">end</span>
+
+<span class="k">return</span> M
 </pre></div>
 </td>
 </tr></tbody>

@@ -23,13 +23,11 @@
   <a class="source" href="findall.html">common/findall.lua</a>
   <a class="source" href="index.html">common/init.lua</a>
   <a class="source" href="lastbuffer.html">common/lastbuffer.lua</a>
-  <a class="source" href="luaonly.html">common/luaonly.lua</a>
   <a class="source" href="multiedit.html">common/multiedit.lua</a>
   <a class="source" href="project.html">common/project.lua</a>
   <a class="source" href="save_strips_ws.html">common/save_strips_ws.lua</a>
   <a class="source" href="theming.html">common/theming.lua</a>
   <a class="source" href="vc.html">common/vc.lua</a>
-  <a class="source" href="wrap.html">common/wrap.lua</a>
     </div>
   </div>
 </div>
@@ -60,7 +58,7 @@ License: <a href="http://www.opensource.org/licenses/mit-license.php">MIT</a>.</
 
 </td>
 <td class="code">
-  <div class="highlight"><pre><span class="nt">module</span>(<span class="s">'_m.common.findall'</span>, package.seeall)
+  <div class="highlight"><pre><span class="k">local</span> M = {}
 </pre></div>
 </td>
 </tr><tr id="section-2">
@@ -89,7 +87,7 @@ of the word at the cursor position</p>
 
 </td>
 <td class="code">
-  <div class="highlight"><pre><span class="k">function</span> <span class="nf">find_all_at_cursor</span>()
+  <div class="highlight"><pre><span class="k">function</span> <span class="nf">M.find_all_at_cursor</span>()
   <span class="k">local</span> ret_val = {}
   <span class="k">local</span> position = buffer.current_pos
 </pre></div>
@@ -171,6 +169,8 @@ of the word at the cursor position</p>
   buffer:set_sel(position, position)
   <span class="k">return</span> ret_val
 <span class="k">end</span>
+
+<span class="k">return</span> M
 </pre></div>
 </td>
 </tr></tbody>

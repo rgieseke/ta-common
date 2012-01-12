@@ -23,13 +23,11 @@
   <a class="source" href="findall.html">common/findall.lua</a>
   <a class="source" href="index.html">common/init.lua</a>
   <a class="source" href="lastbuffer.html">common/lastbuffer.lua</a>
-  <a class="source" href="luaonly.html">common/luaonly.lua</a>
   <a class="source" href="multiedit.html">common/multiedit.lua</a>
   <a class="source" href="project.html">common/project.lua</a>
   <a class="source" href="save_strips_ws.html">common/save_strips_ws.lua</a>
   <a class="source" href="theming.html">common/theming.lua</a>
   <a class="source" href="vc.html">common/vc.lua</a>
-  <a class="source" href="wrap.html">common/wrap.lua</a>
     </div>
   </div>
 </div>
@@ -66,8 +64,9 @@ buffer.additional_carets_visible = true
 
 </td>
 <td class="code">
-  <div class="highlight"><pre><span class="nt">module</span>(<span class="s">'_m.common.multiedit'</span>, package.seeall)
-<span class="nt">require</span> <span class="s">'common.findall'</span>
+  <div class="highlight"><pre><span class="k">local</span> M = {}
+
+<span class="k">local</span> findall = <span class="nt">require</span> <span class="s">'common.findall'</span>
 </pre></div>
 </td>
 </tr><tr id="section-2">
@@ -111,7 +110,7 @@ buffer.additional_carets_visible = true
 
 </td>
 <td class="code">
-  <div class="highlight"><pre><span class="k">function</span> <span class="nf">add_position</span>()
+  <div class="highlight"><pre><span class="k">function</span> <span class="nf">M.add_position</span>()
   table.insert(positions, buffer.current_pos)
   buffer:add_selection(buffer.current_pos, buffer.current_pos)
   restore = <span class="k">true</span>
@@ -130,7 +129,7 @@ exists because Scintilla is grouchy and likes to kill the multi-selection.</p>
 
 </td>
 <td class="code">
-  <div class="highlight"><pre><span class="k">function</span> <span class="nf">set_cursor_positions</span>()
+  <div class="highlight"><pre><span class="k">local</span> <span class="k">function</span> <span class="nf">set_cursor_positions</span>()
   <span class="k">local</span> prev_pos = buffer.current_pos
   <span class="k">for</span> key, pos <span class="k">in</span> <span class="nt">ipairs</span>(positions) <span class="k">do</span>
     <span class="k">if</span> pos ~= prev_pos <span class="k">then</span>
@@ -161,9 +160,9 @@ occurences of the word at the cursor.</p>
 
 </td>
 <td class="code">
-  <div class="highlight"><pre><span class="k">function</span> <span class="nf">select_all</span>()
+  <div class="highlight"><pre><span class="k">function</span> <span class="nf">M.select_all</span>()
   <span class="k">local</span> start_position = buffer.current_pos
-  <span class="k">local</span> occurences = _m.common.findall.find_all_at_cursor()
+  <span class="k">local</span> occurences = findall.find_all_at_cursor()
   <span class="k">local</span> main_sel = 0
   <span class="k">if</span> #occurences > 1 <span class="k">then</span>
     <span class="k">for</span> i, j <span class="k">in</span> <span class="nt">ipairs</span>(occurences) <span class="k">do</span>
@@ -219,6 +218,8 @@ events.connect(<span class="s">'char_added'</span>,
     <span class="k">return</span>
   <span class="k">end</span>
 )
+
+<span class="k">return</span> M
 </pre></div>
 </td>
 </tr></tbody>

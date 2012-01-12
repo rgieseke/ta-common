@@ -23,13 +23,11 @@
   <a class="source" href="findall.html">common/findall.lua</a>
   <a class="source" href="index.html">common/init.lua</a>
   <a class="source" href="lastbuffer.html">common/lastbuffer.lua</a>
-  <a class="source" href="luaonly.html">common/luaonly.lua</a>
   <a class="source" href="multiedit.html">common/multiedit.lua</a>
   <a class="source" href="project.html">common/project.lua</a>
   <a class="source" href="save_strips_ws.html">common/save_strips_ws.lua</a>
   <a class="source" href="theming.html">common/theming.lua</a>
   <a class="source" href="vc.html">common/vc.lua</a>
-  <a class="source" href="wrap.html">common/wrap.lua</a>
     </div>
   </div>
 </div>
@@ -59,7 +57,7 @@ and for inserting single chars with a short cut.</p>
 
 </td>
 <td class="code">
-  <div class="highlight"><pre><span class="nt">module</span>(<span class="s">'_m.common.enclose'</span>, package.seeall)
+  <div class="highlight"><pre><span class="k">local</span> M = {}
 </pre></div>
 </td>
 </tr><tr id="section-2">
@@ -73,10 +71,10 @@ and for inserting single chars with a short cut.</p>
 
 </td>
 <td class="code">
-  <div class="highlight"><pre><span class="k">local</span> events = _G.events
-<span class="k">local</span> m_editing = _m.textadept.editing
-<span class="k">local</span> keys = _G.keys
-<span class="k">local</span> string_char = _G.string.char
+  <div class="highlight"><pre><span class="k">local</span> events = events
+<span class="k">local</span> m_editing = _M.textadept.editing
+<span class="k">local</span> keys = keys
+<span class="k">local</span> string_char = string.char
 </pre></div>
 </td>
 </tr><tr id="section-3">
@@ -125,7 +123,7 @@ Parameters:<br>
 
 </td>
 <td class="code">
-  <div class="highlight"><pre><span class="k">function</span> <span class="nf">enclose_selection</span>(left, right)
+  <div class="highlight"><pre><span class="k">function</span> <span class="nf">M.enclose_selection</span>(left, right)
   <span class="k">if</span> buffer:get_sel_text() == <span class="s">''</span> <span class="k">then</span>
     <span class="k">return</span> <span class="k">false</span>
   <span class="k">else</span>
@@ -150,7 +148,7 @@ Parameters:<br>
 
 </td>
 <td class="code">
-  <div class="highlight"><pre><span class="k">function</span> <span class="nf">paste_or_grow_enclose</span> (left, right)
+  <div class="highlight"><pre><span class="k">function</span> <span class="nf">M.paste_or_grow_enclose</span> (left, right)
   <span class="k">if</span> buffer:get_sel_text() == <span class="s">''</span> <span class="k">then</span>
     buffer:add_text(left)
     <span class="k">return</span>
@@ -166,6 +164,8 @@ Parameters:<br>
     buffer:set_sel(start, stop + add_start + add_stop)
   <span class="k">end</span>
 <span class="k">end</span>
+
+<span class="k">return</span> M
 </pre></div>
 </td>
 </tr></tbody>

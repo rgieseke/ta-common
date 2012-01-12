@@ -23,13 +23,11 @@
   <a class="source" href="findall.html">common/findall.lua</a>
   <a class="source" href="index.html">common/init.lua</a>
   <a class="source" href="lastbuffer.html">common/lastbuffer.lua</a>
-  <a class="source" href="luaonly.html">common/luaonly.lua</a>
   <a class="source" href="multiedit.html">common/multiedit.lua</a>
   <a class="source" href="project.html">common/project.lua</a>
   <a class="source" href="save_strips_ws.html">common/save_strips_ws.lua</a>
   <a class="source" href="theming.html">common/theming.lua</a>
   <a class="source" href="vc.html">common/vc.lua</a>
-  <a class="source" href="wrap.html">common/wrap.lua</a>
     </div>
   </div>
 </div>
@@ -65,7 +63,7 @@ modes.</p>
 
 </td>
 <td class="code">
-  <div class="highlight"><pre><span class="nt">module</span>(<span class="s">'_m.common.ack'</span>, package.seeall)
+  <div class="highlight"><pre><span class="k">local</span> M = {}
 
 </pre></div>
 </td>
@@ -81,7 +79,7 @@ modes.</p>
 
 </td>
 <td class="code">
-  <div class="highlight"><pre><span class="nt">require</span> <span class="s">'common.project'</span>
+  <div class="highlight"><pre><span class="k">local</span> project = <span class="nt">require</span> <span class="s">'common.project'</span>
 
 </pre></div>
 </td>
@@ -108,13 +106,13 @@ modes.</p>
 <p>Ack settings.
 They can be overwritten in your <code>init.lua</code> after loading the
 <em>common</em> module, for example:</p>
-<pre><code>_m.common.ack.OPTIONS = '--nocolor --nogroup --ignore-case '
+<pre><code>_M.common.ack.OPTIONS = '--nocolor --nogroup --ignore-case'
 </code></pre>
 
 
 </td>
 <td class="code">
-  <div class="highlight"><pre>OPTIONS = <span class="s">'--nocolor --nogroup '</span>
+  <div class="highlight"><pre>M.OPTIONS = <span class="s">'--nocolor --nogroup'</span>
 
 </pre></div>
 </td>
@@ -129,8 +127,9 @@ They can be overwritten in your <code>init.lua</code> after loading the
 
 </td>
 <td class="code">
-  <div class="highlight"><pre><span class="k">local</span> L = _G.locale.localize
-<span class="k">local</span> buffer_type = L(<span class="s">'[Files Found Buffer]'</span>)
+  <div class="highlight"><pre><span class="k">local</span> events = events
+
+<span class="k">local</span> buffer_type = _L[<span class="s">'Files Found Buffer'</span>]
 
 </pre></div>
 </td>
@@ -160,12 +159,12 @@ is active run the search after pressing enter.</p>
 
 </td>
 <td class="code">
-  <div class="highlight"><pre>events.connect(<span class="s">'command_entry_command'</span>,
+  <div class="highlight"><pre>events.connect(events.COMMAND_ENTRY_COMMAND,
   <span class="k">function</span>(text)
     <span class="k">if</span> ack_search <span class="k">then</span>
-      <span class="k">local</span> search_dir = _m.common.project.root()
+      <span class="k">local</span> search_dir = project.root()
       gui.command_entry.focus()
-      <span class="k">local</span> command = <span class="s">'ack '</span>..OPTIONS..text
+      <span class="k">local</span> command = <span class="s">'ack '</span>..M.OPTIONS..<span class="s">' '</span>..text
       <span class="k">local</span> p = io.popen(command..<span class="s">' '</span>..search_dir..<span class="s">' 2&gt;&1'</span>)
       <span class="k">local</span> out = p:read(<span class="s">'*all'</span>)
       p:close()
@@ -176,7 +175,7 @@ is active run the search after pressing enter.</p>
       <span class="k">return</span> <span class="k">true</span>
     <span class="k">end</span>
     <span class="k">if</span> textadept_find_in_files <span class="k">then</span>
-      <span class="k">local</span> search_dir = _m.common.project.root()
+      <span class="k">local</span> search_dir = project.root()
       gui.command_entry.focus()
       gui.find.find_entry_text = text
       gui.find.find_in_files(search_dir)
@@ -198,7 +197,7 @@ is active run the search after pressing enter.</p>
 
 </td>
 <td class="code">
-  <div class="highlight"><pre>events.connect(<span class="s">'command_entry_keypress'</span>,
+  <div class="highlight"><pre>events.connect(events.COMMAND_ENTRY_KEYPRESS,
   <span class="k">function</span>(code, shift, control, alt)
     <span class="k">local</span> K = _G.keys.KEYSYMS
     <span class="k">if</span> ack_search <span class="o">or</span> textadept_find_in_files <span class="k">then</span>
@@ -208,14 +207,14 @@ is active run the search after pressing enter.</p>
         gui.command_entry.focus()
         gui.statusbar_text = <span class="s">''</span>
         <span class="k">return</span> <span class="k">true</span>
-      <span class="k">elseif</span> alt <span class="o">and</span> string.char(code) == <span class="s">'l'</span> <span class="k">then</span>
+      <span class="k">elseif</span> control <span class="o">and</span> string.char(code) == <span class="s">'l'</span> <span class="k">then</span>
         ack_search = <span class="k">nil</span>
         textadept_find_in_files = <span class="k">true</span>
-        gui.statusbar_text = <span class="s">"Lua find in files: "</span>..__m.common.project.root()
-      <span class="k">elseif</span> alt <span class="o">and</span> string.char(code) == <span class="s">'a'</span> <span class="k">then</span>
+        gui.statusbar_text = <span class="s">"Lua find in files: "</span>..project.root()
+      <span class="k">elseif</span> control <span class="o">and</span> string.char(code) == <span class="s">'k'</span> <span class="k">then</span>
         ack_search = <span class="k">true</span>
         textadept_find_in_files = <span class="k">false</span>
-        gui.statusbar_text = <span class="s">"ack: "</span>..__m.common.project.root()
+        gui.statusbar_text = <span class="s">"ack: "</span>..project.root()
       <span class="k">end</span>
     <span class="k">end</span>
   <span class="k">end</span>, 1)
@@ -233,7 +232,7 @@ is active run the search after pressing enter.</p>
 
 </td>
 <td class="code">
-  <div class="highlight"><pre><span class="k">function</span> <span class="nf">search_entry</span>()
+  <div class="highlight"><pre><span class="k">function</span> <span class="nf">M.search_entry</span>()
   <span class="k">if</span> buffer.filename <span class="k">then</span>
     <span class="k">if</span> WIN32 <span class="k">then</span>
       textadept_find_in_files = <span class="k">true</span>
@@ -242,8 +241,11 @@ is active run the search after pressing enter.</p>
     <span class="k">end</span>
     gui.command_entry.entry_text = <span class="s">''</span>
     gui.command_entry.focus()
+    gui.statusbar_text = <span class="s">"ack: "</span>..project.root()
   <span class="k">end</span>
 <span class="k">end</span>
+
+<span class="k">return</span> M
 </pre></div>
 </td>
 </tr></tbody>

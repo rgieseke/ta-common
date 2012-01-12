@@ -23,13 +23,11 @@
   <a class="source" href="findall.html">common/findall.lua</a>
   <a class="source" href="index.html">common/init.lua</a>
   <a class="source" href="lastbuffer.html">common/lastbuffer.lua</a>
-  <a class="source" href="luaonly.html">common/luaonly.lua</a>
   <a class="source" href="multiedit.html">common/multiedit.lua</a>
   <a class="source" href="project.html">common/project.lua</a>
   <a class="source" href="save_strips_ws.html">common/save_strips_ws.lua</a>
   <a class="source" href="theming.html">common/theming.lua</a>
   <a class="source" href="vc.html">common/vc.lua</a>
-  <a class="source" href="wrap.html">common/wrap.lua</a>
     </div>
   </div>
 </div>
@@ -77,7 +75,7 @@ In <code>~/.ctags</code>:</p>
 
 </td>
 <td class="code">
-  <div class="highlight"><pre><span class="nt">module</span>(<span class="s">'_m.common.ctags'</span>, package.seeall)
+  <div class="highlight"><pre><span class="k">local</span> M = {}
 </pre></div>
 </td>
 </tr><tr id="section-2">
@@ -107,9 +105,9 @@ field.</p>
 </td>
 <td class="code">
   <div class="highlight"><pre><span class="k">if</span> WIN32 <span class="k">then</span>
-  CTAGS = <span class="s">'"c:\\program files\\ctags\\ctags.exe" --sort=yes --fields=+K-f'</span>
+  M.CTAGS = <span class="s">'"c:\\program files\\ctags\\ctags.exe" --sort=yes --fields=+K-f'</span>
 <span class="k">else</span>
-  CTAGS = <span class="s">'ctags --sort=yes --fields=+K-f'</span>
+  M.CTAGS = <span class="s">'ctags --sort=yes --fields=+K-f'</span>
 <span class="k">end</span>
 </pre></div>
 </td>
@@ -139,11 +137,11 @@ Requires <a href="(http://ctags.sourceforge.net/">ctags</a> to be installed.</p>
 
 </td>
 <td class="code">
-  <div class="highlight"><pre><span class="k">function</span> <span class="nf">goto_symbol</span>()
+  <div class="highlight"><pre><span class="k">function</span> <span class="nf">M.goto_symbol</span>()
   <span class="k">local</span> buffer = buffer
   <span class="k">if</span> <span class="o">not</span> buffer.filename <span class="k">then</span> <span class="k">return</span> <span class="k">end</span>
   <span class="k">local</span> symbols = {}
-  <span class="k">local</span> p = io.popen(CTAGS..<span class="s">' --excmd=number -f - "'</span>..buffer.filename..<span class="s">'"'</span>)
+  <span class="k">local</span> p = io.popen(M.CTAGS..<span class="s">' --excmd=number -f - "'</span>..buffer.filename..<span class="s">'"'</span>)
   <span class="k">for</span> line <span class="k">in</span> p:read(<span class="s">'*all'</span>):gmatch(<span class="s">'[^\r\n]+'</span>) <span class="k">do</span>
     <span class="k">local</span> name, line, ext = line:match(<span class="s">'^(&#37;S+)\t[^\t]+\t([^;]+);"\t(.+)$'</span>)
     <span class="k">if</span> name <span class="o">and</span> line <span class="o">and</span> ext <span class="k">then</span>
@@ -163,10 +161,15 @@ Requires <a href="(http://ctags.sourceforge.net/">ctags</a> to be installed.</p>
                                 <span class="s">'--output-column'</span>, <span class="s">'3'</span>,
                                 <span class="s">'--items'</span>, symbols)
     <span class="k">local</span> ok, line = response:match(<span class="s">'(&#37;S+)\n(&#37;d+)$'</span>)
-    <span class="k">if</span> ok == <span class="s">'gtk-ok'</span> <span class="k">then</span> buffer:goto_line(<span class="nt">tonumber</span>(line) - 1) <span class="k">end</span>
+    <span class="k">if</span> ok == <span class="s">'gtk-ok'</span> <span class="k">then</span>
+      buffer:goto_line(<span class="nt">tonumber</span>(line) - 1)
+      buffer:vertical_centre_caret()
+    <span class="k">end</span>
   <span class="k">end</span>
   p:close()
 <span class="k">end</span>
+
+<span class="k">return</span> M
 </pre></div>
 </td>
 </tr></tbody>
