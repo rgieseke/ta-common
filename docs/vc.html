@@ -97,7 +97,6 @@ snapopen dialog.</p>
     <span class="k">for</span> fstatus, fname <span class="k">in</span> string.gmatch(status, <span class="s">"(.)&#37;s(&#37;C+)\r?\n"</span>) <span class="k">do</span>
       items[#items+1] = fname
       items[#items+1] = fstatus
-      _G.<span class="nt">print</span>(fname..<span class="s">' '</span>..fstatus)
     <span class="k">end</span>
     <span class="k">local</span> utf8_filenames = gui.filteredlist(_L[<span class="s">'Open'</span>], {__L[<span class="s">'File'</span>], <span class="s">'Status'</span>}, items, <span class="k">false</span>,
                                           <span class="s">'--select-multiple'</span>) <span class="o">or</span> <span class="s">''</span>
