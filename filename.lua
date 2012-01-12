@@ -1,11 +1,11 @@
 -- Inserts a filename with a (if possible) relative path
 -- from a file select dialog.
-module('_m.common.filename', package.seeall)
+local M = {}
 
 -- ## Commands
 
 -- Opens a file select dialog and inserts filename in the buffer.
-function insert_filename()
+function M.insert_filename()
   local current_dir = (buffer.filename or ''):match('.+[/\\]')
   if not current_dir then
     current_dir = _HOME
@@ -26,8 +26,4 @@ function insert_filename()
   end
 end
 
--- ## Key commands
-local keys = _G.keys
-
--- `Ctrl`+`Alt/⌘`+`Shift`+`O` Insert a filename.
-keys.caO = { insert_filename }
+return M
