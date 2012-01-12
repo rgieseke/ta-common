@@ -1,5 +1,5 @@
 -- Toggle between two buffers with a key shortcut.
-module('_m.common.lastbuffer', package.seeall)
+local M = {}
 
 -- ## Commands
 
@@ -15,8 +15,10 @@ events.connect('buffer_before_switch',
   end)
 
 -- Switch to last buffer.
-function last_buffer()
+function M.last_buffer()
   if last_buffer_index and #_BUFFERS >= last_buffer_index then
-    view:goto_buffer(last_buffer_index, true)
+    view:goto_buffer(last_buffer_index)
   end
 end
+
+return M

@@ -6,7 +6,6 @@
 -- position. If another key is pressed the necessary spaces
 -- are inserted again. To see what is going on enable
 -- view whitespace.
-module('_m.common.save_strips_ws', package.seeall)
 
 -- Variable to save the current column.
 local saved_col

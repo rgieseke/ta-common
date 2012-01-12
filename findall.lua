@@ -1,13 +1,13 @@
 -- Finds occurences of word under the cursor.<br>
 -- Copyright (c) 2010 [Brian Schott (Sir Alaran)](http://caladbolg.net/textadeptwiki/index.php?n=Main.Multiedit).<br>
 -- License: [MIT](http://www.opensource.org/licenses/mit-license.php).
-module('_m.common.findall', package.seeall)
+local M = {}
 
 -- ## Commands
 
 -- Returns a table consisting of the start and end positions of the occurences
 -- of the word at the cursor position
-function find_all_at_cursor()
+function M.find_all_at_cursor()
   local ret_val = {}
   local position = buffer.current_pos
   -- Grab the word at the current position
@@ -41,3 +41,5 @@ function find_all_at_cursor()
   buffer:set_sel(position, position)
   return ret_val
 end
+
+return M

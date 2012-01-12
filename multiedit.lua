@@ -6,8 +6,9 @@
 --     buffer.multiple_selection = true
 --     buffer.additional_selection_typing = true
 --     buffer.additional_carets_visible = true
-module('_m.common.multiedit', package.seeall)
-require 'common.findall'
+local M = {}
+
+local findall = require 'common.findall'
 
 -- ## Setup
 
@@ -17,7 +18,7 @@ local restore = false
 -- ## Commands
 
 -- Adds a single mark.
-function add_position()
+function M.add_position()
   table.insert(positions, buffer.current_pos)
   buffer:add_selection(buffer.current_pos, buffer.current_pos)
   restore = true
@@ -25,7 +26,7 @@ end
 
 -- Resets the cursor positions according to the positions table. This function
 -- exists because Scintilla is grouchy and likes to kill the multi-selection.
-function set_cursor_positions()
+local function set_cursor_positions()
   local prev_pos = buffer.current_pos
   for key, pos in ipairs(positions) do
     if pos ~= prev_pos then
@@ -45,9 +46,9 @@ end
 -- Multi-select all occurences of the word at the cursor position. This acts as
 -- a very fast find-replace function. Use with caution, as this selects all
 -- occurences of the word at the cursor.
-function select_all()
+function M.select_all()
   local start_position = buffer.current_pos
-  local occurences = _m.common.findall.find_all_at_cursor()
+  local occurences = findall.find_all_at_cursor()
   local main_sel = 0
   if #occurences > 1 then
     for i, j in ipairs(occurences) do
@@ -92,3 +93,5 @@ events.connect('char_added',
     return
   end
 )
+
+return M
