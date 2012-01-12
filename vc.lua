@@ -29,7 +29,6 @@ function M.hg_status()
     for fstatus, fname in string.gmatch(status, "(.)%s(%C+)\r?\n") do
       items[#items+1] = fname
       items[#items+1] = fstatus
-      _G.print(fname..' '..fstatus)
     end
     local utf8_filenames = gui.filteredlist(_L['Open'], {_L['File'], 'Status'}, items, false,
                                           '--select-multiple') or ''
