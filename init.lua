@@ -24,54 +24,55 @@
 -- The submodules can also be used independently:
 --     require 'common.ack'
 
-module('_m.common', package.seeall)
+local keys = keys
 
-require 'common.ack'
-require 'common.bracematching'
+local M = {}
+
+M.ack = require 'common.ack'
+M.bracematching = require 'common.bracematching'
 require 'common.comments'
-require 'common.ctags'
-require 'common.display_filename'
-require 'common.enclose'
-require 'common.filename'
-require 'common.findall'
-require 'common.lastbuffer'
-require 'common.luaonly'
-require 'common.multiedit'
-require 'common.project'
+M.ctags = require 'common.ctags'
+M.display_filename = require 'common.display_filename'
+M.enclose = require 'common.enclose'
+M.filename = require 'common.filename'
+M.lastbuffer = require 'common.lastbuffer'
+M.multiedit = require 'common.multiedit'
+M.project = require 'common.project'
 require 'common.save_strips_ws'
 require 'common.theming'
-require 'common.vc'
+M.vc = require 'common.vc'
+
 
 -- ## Key commands
-local keys = _G.keys
+local keys = keys
 
--- Comment a line: `Ctrl`+`#`
-keys['c#'] = { _m.textadept.editing.block_comment }
-
-keys.ct = {}
 -- Snapopen.<br>
--- Textadept home: `Ctrl`+`T`, `T` <br>
--- User home: `Ctrl`+`T`, `U` <br>
--- Current project `Ctrl`+`Alt`+`O`:
-keys.ct.t = { _m.textadept.snapopen.open, { _HOME }, { '.+%.luadoc',
+-- (Filtering out some folders and file extensions)<br>
+-- Textadept home: `Alt/⌘`+`Shift`+`U`<br>
+-- User home : `Alt/⌘`+`U`<br>
+-- Current project `Alt/⌘`+`P`<br>
+keys[OSX and 'mU' or 'aU'] = { _M.textadept.snapopen.open, { _HOME }, { '.+%.luadoc',
               folders = { 'images', 'doc', 'manual', '%.hg', '%.git' } } }
-keys.ct.u = { _m.textadept.snapopen.open, { _USERHOME },
+keys[OSX and 'mu' or 'au'] = { _M.textadept.snapopen.open, { _USERHOME },
               { folders = { '%.hg', '%.git' } } }
-keys.cao = { function ()
-  local root = _m.common.project.root()
-  _m.textadept.snapopen.open({ root }, { 'pyc$', folders = { '%.hg', '%.git'} })
-end }
+keys[OSX and 'mp' or 'ap'] = function ()
+  local root = _M.common.project.root()
+  _M.textadept.snapopen.open({ root }, { 'pyc$', folders = { '%.hg', '%.git'} })
+end
 
--- Close view with message/error buffer and unsplit: `Ctrl`+`W`
-keys.cw = { function()
+-- Close view with message/error buffer and unsplit: `Ctrl/⌘`+`W`
+keys[OSX and 'mw' or 'cw']= function()
   if buffer._type then
     buffer:close()
-    gui.goto_view(-1, false)
+    gui.goto_view(-1, true)
     view:unsplit()
   else
     buffer:close()
   end
-end }
+end
+
+-- Insert a filename: `Ctrl`+`Alt/⌘`+`Shift`+`O`
+keys[OSX and 'cmO' or 'caO'] = M.filename.insert_filename
 
 -- Save and reset Lua state: `F9`
 keys['f9'] = { function()
@@ -79,59 +80,49 @@ keys['f9'] = { function()
   reset()
 end }
 
--- Duplicate current line: `Alt/⌘`+`D`
-keys.ad = {
-  function ()
-    local buffer = buffer
-    buffer:line_duplicate()
-    buffer:line_down()
-  end
-}
+-- Open command entry for ack/Lua search: `Ctrl`+`Alt/⌘`+`K`<br>
+-- In the command entry, switch to Lua find in files, `Ctrl`+`L`,
+-- or  ack search, `Ctrl`+`K`.
+keys.cmk = M.ack.search_entry
 
--- Open command entry for ack/Lua search: `Ctrl`+`Alt/⌘`+`F`<br>
--- In the command entry, switch to Lua find in files, `Alt/⌘`+`L`,
--- or  ack search, `Alt/⌘`+`A`.
-keys.caf = _m.common.ack.search_entry
-
--- Go to the matching brace: `Ctrl`+`E`
-keys.ce = _m.common.bracematching.match_brace
+-- Go to the matching brace: `Ctrl`+`M`
+keys.cm = M.bracematching.match_brace
 
 -- Open filtered list with symbols using ctags: `Alt/⌘`+`G`
-keys.ag = _m.common.ctags.goto_symbol
+keys[OSX and 'cmg' or 'cag'] = M.ctags.goto_symbol
 
--- Add another cursor position: `Ctrl`+`J`<br>
--- Select all occurrences of a word: `Ctrl`+`Alt/⌘`+`j`
-keys.cj = _m.common.multiedit.add_position
-keys.caj = _m.common.multiedit.select_all
+-- Add another cursor position: `Ctrl`+`Shift`+`M`<br>
+-- Select all occurrences of a word: `Ctrl`+`Alt/⌘`+`Shift`+`M`
+keys.cM = M.multiedit.add_position
+keys[OSX and 'cmM' or 'caM'] = M.multiedit.select_all
 
--- Switch to last buffer: `Ctrl`+`Alt/⌘`+`B`
-keys.cab = _m.common.lastbuffer.last_buffer
+-- Switch to last buffer: `Ctrl`+`2`
+keys.c2 = M.lastbuffer.last_buffer
 
 -- Switch buffer dialog:<br>
 -- `Ctrl`+`B` or `⌘`+`B` (OS X)<br>
 -- See [display_filename.lua](display_filename.html).
-if OSX then
-  keys.ab = _m.common.display_filename.switch_buffer
-else
-  keys.cb = _m.common.display_filename.switch_buffer
+keys[OSX and 'mb' or 'ab'] = M.display_filename.switch_buffer
+
+-- Show hg status (or project folder) in snapopen dialog:<br>
+-- `Ctrl`+`Alt/⌘`+`P`
+keys[OSX and 'cmp' or 'cap'] = function()
+  if buffer.filename then M.vc.hg_status( ) end
 end
 
--- Show hg status in snapopen dialog: `Ctrl`+`Alt/⌘`+`P`
-keys.cap = { function()
-  if buffer.filename then _m.common.vc.hg_status( ) end
-end}
-
 -- Enclose selection or insert chars: `'` , `"`, `(`, `[`, `{`
-keys["'"] = { _m.common.enclose.enclose_selection, "'", "'" }
-keys['"'] = { _m.common.enclose.enclose_selection, '"', '"' }
-keys['('] = { _m.common.enclose.enclose_selection, '(', ')' }
-keys['['] = { _m.common.enclose.enclose_selection, '[', ']' }
-keys['{'] = { _m.common.enclose.enclose_selection, '{', '}' }
+keys["'"] = { M.enclose.enclose_selection, "'", "'" }
+keys['"'] = { M.enclose.enclose_selection, '"', '"' }
+keys['('] = { M.enclose.enclose_selection, '(', ')' }
+keys['['] = { M.enclose.enclose_selection, '[', ']' }
+keys['{'] = { M.enclose.enclose_selection, '{', '}' }
 
 -- Enclose selection and keep selection or insert single char
--- if nothing is selected: `Ctrl`+`'` or `"` or `(` or `[` or `{`
-keys["c'"] = { _m.common.enclose.paste_or_grow_enclose, "'", "'" }
-keys['c"'] = { _m.common.enclose.paste_or_grow_enclose, '"', '"' }
-keys['c('] = { _m.common.enclose.paste_or_grow_enclose, '(', ')' }
-keys['c['] = { _m.common.enclose.paste_or_grow_enclose, '[', ']' }
-keys['c{'] = { _m.common.enclose.paste_or_grow_enclose, '{', '}' }
+-- if nothing is selected: `Ctrl`+`Alt/⌘`+`'` or `"` or `(` or `[` or `{`
+keys[OSX and "cm'" or "ca'"] = { M.enclose.paste_or_grow_enclose, "'", "'" }
+keys[OSX and 'cm"' or 'ca"'] = { M.enclose.paste_or_grow_enclose, '"', '"' }
+keys[OSX and 'cm(' or 'ca('] = { M.enclose.paste_or_grow_enclose, '(', ')' }
+keys[OSX and 'cm[' or 'ca['] = { M.enclose.paste_or_grow_enclose, '[', ']' }
+keys[OSX and 'cm{' or 'ca{'] = { M.enclose.paste_or_grow_enclose, '{', '}' }
+
+return M
