@@ -1,10 +1,10 @@
 -- Displays a filtered list of files in a project along with their current
 -- hg state or a standard snapopen dialog if hg is not used.
-module('_m.common.vc', package.seeall)
+local M = {}
 
 -- Figure out the projects root and display states of the files in a
 -- snapopen dialog.
-function hg_status()
+function M.hg_status()
   local path = buffer.filename:match('(.+)[/\\]')
   local cd_path
   if WIN32 then
@@ -12,12 +12,12 @@ function hg_status()
   else
     cd_path = 'cd '..path
   end
-  local command = cd_path..'" && hg root 2>&1'
+  local command = cd_path..' && hg root 2>&1'
   local f = io.popen(command)
   local ans = f:read("*a")
   f:close()
   if ans:match(".hg not found") then
-     _m.textadept.snapopen.open({path})
+     _M.textadept.snapopen.open(path)
   else
     local hg_root = ans:sub(1,-2)
     command = cd_path..' && hg st -amdcu 2>&1'
@@ -26,22 +26,17 @@ function hg_status()
     f:close()
     local items =  {}
     local fstatus, fname
-    for fstatus, fname in string.gmatch(status, "([AMDC\?])%s([%w\\%.]+)\r?\n") do
+    for fstatus, fname in string.gmatch(status, "(.)%s(%C+)\r?\n") do
       items[#items+1] = fname
       items[#items+1] = fstatus
+      _G.print(fname..' '..fstatus)
     end
-    local out =
-      gui.dialog('filteredlist',
-                 '--title', 'hg ('..hg_root..')',
-                 '--button1', 'gtk-ok',
-                 '--button2', 'gtk-cancel',
-                 '--no-newline',
-                 '--string-output',
-                 '--columns', 'File', 'Status',
-                 '--items', unpack(items))
-    local response, file = out:match('([^\n]+)\n([^\n]+)$')
-    if response and response ~= 'gtk-cancel' then
-      io.open_file(hg_root..'/'..file)
+    local utf8_filenames = gui.filteredlist(_L['Open'], {_L['File'], 'Status'}, items, false,
+                                          '--select-multiple') or ''
+    for filename in utf8_filenames:gmatch('[^\n]+') do
+      io.open_file(hg_root..'/'..filename)
     end
   end
 end
+
+return M
