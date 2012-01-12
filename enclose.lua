@@ -1,12 +1,12 @@
 -- This module adds functions for enclosing selections with a single key
 -- and for inserting single chars with a short cut.
-module('_m.common.enclose', package.seeall)
+local M = {}
 
 -- ## Setup
-local events = _G.events
-local m_editing = _m.textadept.editing
-local keys = _G.keys
-local string_char = _G.string.char
+local events = events
+local m_editing = _M.textadept.editing
+local keys = keys
+local string_char = string.char
 
 -- Table with char codes as indices.
 braces = { -- () [] {}
@@ -21,7 +21,7 @@ braces = { -- () [] {}
 -- Parameters:<br>
 -- _left_: char on the left<br>
 -- _right_: char on the right
-function enclose_selection(left, right)
+function M.enclose_selection(left, right)
   if buffer:get_sel_text() == '' then
     return false
   else
@@ -35,7 +35,7 @@ end
 -- Parameters:<br>
 -- _left_: char on the left<br>
 -- _right_: char on the right
-function paste_or_grow_enclose (left, right)
+function M.paste_or_grow_enclose (left, right)
   if buffer:get_sel_text() == '' then
     buffer:add_text(left)
     return
@@ -51,3 +51,5 @@ function paste_or_grow_enclose (left, right)
     buffer:set_sel(start, stop + add_start + add_stop)
   end
 end
+
+return M

@@ -14,11 +14,11 @@
 -- [core.gui](http://code.google.com/p/textadept/source/browse/core/gui.lua) and
 -- [snapopen](http://code.google.com/p/textadept/source/browse/modules/textadept/snapopen.lua)
 -- module.
-module('_m.common.display_filename', package.seeall)
-
-local L = _G.locale.localize
+local M = {}
 
 -- ## Fields
+
+local pattern, replacement
 
 -- Read environment variable.
 if WIN32 then
@@ -36,7 +36,7 @@ end
 -- _buffer_: The currently focused buffer.
 local function set_title(buffer)
   local buffer = buffer
-  local filename = buffer.filename or buffer._type or L('Untitled')
+  local filename = buffer.filename or buffer._type or _L['Untitled']
   local dirty = buffer.dirty and '*' or '-'
   gui.title = string.format('%s %s Textadept (%s)', filename:match('[^/\\]+$'),
                             dirty, filename:gsub(pattern, replacement))
@@ -75,21 +75,23 @@ events.connect('view_after_switch',
 
 -- Displays a dialog with a list of buffers to switch to and switches to the
 -- selected one, if any.
-function switch_buffer()
+function M.switch_buffer()
   local items = {}
   for _, buffer in ipairs(_BUFFERS) do
-    local filename = buffer.filename or buffer._type or L('Untitled')
+    local filename = buffer.filename or buffer._type or _L['Untitled']
     local dirty = buffer.dirty and '*' or ''
     items[#items + 1] = dirty..filename:match('[^/\\]+$')
     items[#items + 1] = filename:gsub(pattern, replacement)
   end
   local response = gui.dialog('filteredlist',
-                              '--title', L('Switch Buffers'),
+                              '--title', _L['Switch Buffers'],
                               '--button1', 'gtk-ok',
                               '--button2', 'gtk-cancel',
                               '--no-newline',
                               '--columns', 'Name', 'File',
                               '--items', items)
   local ok, i = response:match('(%-?%d+)\n(%d+)$')
-  if ok == '1' then view:goto_buffer(tonumber(i) + 1, true) end
+  if ok == '1' then view:goto_buffer(tonumber(i) + 1) end
 end
+
+return M

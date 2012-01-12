@@ -3,12 +3,12 @@
 -- [Textadept's editing.lua](http://code.google.com/p/textadept/source/browse/modules/textadept/editing.lua).
 -- Textadept's default is to only match the brace to the right which can be
 -- preferable if a block caret is used.
-module('_m.common.bracematching', package.seeall)
+local M = {}
 
 -- ## Setup
 
 -- Disable default highlighting of matching braces.
-_m.textadept.editing.HIGHLIGHT_BRACES = false
+_M.textadept.editing.HIGHLIGHT_BRACES = false
 
 -- Table with char codes as indices.
 braces = { -- () [] {}
@@ -39,7 +39,7 @@ end)
 -- Goes to a matching brace position, selecting the text inside if specified.<br>
 -- Parameter:<br>
 -- _select_: If true, selects the text between matching braces.
-function match_brace(select)
+function M.match_brace(select)
   local buffer = buffer
   local caret = buffer.current_pos
   if braces[buffer.char_at[caret - 1]] then
@@ -58,3 +58,5 @@ function match_brace(select)
     end
   end
 end
+
+return M
