@@ -23,13 +23,11 @@
   <a class="source" href="findall.html">common/findall.lua</a>
   <a class="source" href="index.html">common/init.lua</a>
   <a class="source" href="lastbuffer.html">common/lastbuffer.lua</a>
-  <a class="source" href="luaonly.html">common/luaonly.lua</a>
   <a class="source" href="multiedit.html">common/multiedit.lua</a>
   <a class="source" href="project.html">common/project.lua</a>
   <a class="source" href="save_strips_ws.html">common/save_strips_ws.lua</a>
   <a class="source" href="theming.html">common/theming.lua</a>
   <a class="source" href="vc.html">common/vc.lua</a>
-  <a class="source" href="wrap.html">common/wrap.lua</a>
     </div>
   </div>
 </div>
@@ -59,7 +57,7 @@ from a file select dialog.</p>
 
 </td>
 <td class="code">
-  <div class="highlight"><pre><span class="nt">module</span>(<span class="s">'_m.common.filename'</span>, package.seeall)
+  <div class="highlight"><pre><span class="k">local</span> M = {}
 </pre></div>
 </td>
 </tr><tr id="section-2">
@@ -87,7 +85,7 @@ from a file select dialog.</p>
 
 </td>
 <td class="code">
-  <div class="highlight"><pre><span class="k">function</span> <span class="nf">insert_filename</span>()
+  <div class="highlight"><pre><span class="k">function</span> <span class="nf">M.insert_filename</span>()
   <span class="k">local</span> current_dir = (buffer.filename <span class="o">or</span> <span class="s">''</span>):match(<span class="s">'.+[/\\]'</span>)
   <span class="k">if</span> <span class="o">not</span> current_dir <span class="k">then</span>
     current_dir = _HOME
@@ -107,34 +105,8 @@ from a file select dialog.</p>
     <span class="k">end</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</pre></div>
-</td>
-</tr><tr id="section-4">
-<td class="docs">
-  <div class="pilwrap">
-    <a class="pilcrow" href="#section-4">&#182;</a>
-  </div>
-  
-<h2>Key commands</h2>
 
-
-</td>
-<td class="code">
-  <div class="highlight"><pre><span class="k">local</span> keys = _G.keys
-</pre></div>
-</td>
-</tr><tr id="section-5">
-<td class="docs">
-  <div class="pilwrap">
-    <a class="pilcrow" href="#section-5">&#182;</a>
-  </div>
-  
-<p><code>Ctrl</code>+<code>Alt/⌘</code>+<code>Shift</code>+<code>O</code> Insert a filename.</p>
-
-
-</td>
-<td class="code">
-  <div class="highlight"><pre>keys.caO = { insert_filename }
+<span class="k">return</span> M
 </pre></div>
 </td>
 </tr></tbody>

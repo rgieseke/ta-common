@@ -23,13 +23,11 @@
   <a class="source" href="findall.html">common/findall.lua</a>
   <a class="source" href="index.html">common/init.lua</a>
   <a class="source" href="lastbuffer.html">common/lastbuffer.lua</a>
-  <a class="source" href="luaonly.html">common/luaonly.lua</a>
   <a class="source" href="multiedit.html">common/multiedit.lua</a>
   <a class="source" href="project.html">common/project.lua</a>
   <a class="source" href="save_strips_ws.html">common/save_strips_ws.lua</a>
   <a class="source" href="theming.html">common/theming.lua</a>
   <a class="source" href="vc.html">common/vc.lua</a>
-  <a class="source" href="wrap.html">common/wrap.lua</a>
     </div>
   </div>
 </div>
@@ -71,7 +69,7 @@ If the project root is not found in <code>DIRS</code> the file's directory is re
 </td>
 <td class="code">
   <div class="highlight"><pre>
-<span class="nt">module</span>(<span class="s">'_m.common.project'</span>, package.seeall)
+<span class="k">local</span> M = {}
 </pre></div>
 </td>
 </tr><tr id="section-2">
@@ -96,7 +94,7 @@ If the project root is not found in <code>DIRS</code> the file's directory is re
   
 <p>This <code>DIRS</code> field can be overwritten or added to in your <code>init.lua</code> after
 the <em>common</em> module has been loaded, for example:</p>
-<pre><code>_m.common.project.DIRS = { _USERHOME..'/modules',
+<pre><code>_M.common.project.DIRS = { _USERHOME..'/modules',
                            '/home/username/code',
                            '/home/username/projects' }
 </code></pre>
@@ -106,7 +104,7 @@ modules directory.</p>
 
 </td>
 <td class="code">
-  <div class="highlight"><pre>DIRS = { _HOME, _USERHOME..<span class="s">'/modules'</span> }
+  <div class="highlight"><pre>M.DIRS = { _HOME, _USERHOME..<span class="s">'/modules'</span> }
 </pre></div>
 </td>
 </tr><tr id="section-4">
@@ -136,12 +134,12 @@ is returned.</p>
 
 </td>
 <td class="code">
-  <div class="highlight"><pre><span class="k">function</span> <span class="nf">root</span>()
+  <div class="highlight"><pre><span class="k">function</span> <span class="nf">M.root</span>()
   <span class="k">local</span> filename = buffer.filename
   <span class="k">local</span> project_root
   <span class="k">if</span> filename <span class="k">then</span>
-    <span class="k">for</span> i=1, #DIRS <span class="k">do</span>
-      project_root = filename:match(<span class="s">'('</span>..DIRS[i]..<span class="s">'[/\\][^/\\]+)[/\\].+'</span>)
+    <span class="k">for</span> i=1, #M.DIRS <span class="k">do</span>
+      project_root = filename:match(<span class="s">'('</span>..M.DIRS[i]..<span class="s">'[/\\][^/\\]+)[/\\].+'</span>)
       <span class="k">if</span> project_root <span class="k">then</span>
         <span class="k">break</span>
       <span class="k">end</span>
@@ -150,6 +148,7 @@ is returned.</p>
   <span class="k">return</span> project_root <span class="o">or</span> buffer.filename:match(<span class="s">'(.+)[/\\]'</span>)
 <span class="k">end</span>
 
+<span class="k">return</span> M
 </pre></div>
 </td>
 </tr></tbody>
