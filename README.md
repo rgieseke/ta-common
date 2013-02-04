@@ -5,7 +5,7 @@ Some functions, key commands and modifications that change Textadept's
 default behaviour.
 It contains modifications to Mitchell's Textadept modules, code from
 Brian Schott and others who posted to the mailing list or the
-[Textadept wiki](http://caladbolg.net/textadeptwiki/).
+[Textadept wiki](http://foicica.com/wiki/textadept).
 It is licensed under the
 [MIT license](http://www.opensource.org/licenses/mit-license.php).
 
