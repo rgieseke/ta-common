@@ -34,7 +34,7 @@ require 'common.comments'
 --M.display_filename = require 'common.display_filename'
 M.enclose = require 'common.enclose'
 M.filename = require 'common.filename'
-require 'common.highlight'
+if not CURSES then require 'common.highlight' end
 M.lastbuffer = require 'common.lastbuffer'
 M.multiedit = require 'common.multiedit'
 M.project = require 'common.project'
