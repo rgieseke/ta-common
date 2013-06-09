@@ -59,17 +59,6 @@ keys[OSX and 'mp' or 'ap'] = function ()
   io.snapopen(root, { 'pyc$'})
 end
 
--- Close view with message/error buffer and unsplit: `Ctrl/⌘`+`W`
-keys[OSX and 'mw' or 'cw']= function()
-  if buffer._type and not buffer._textredux then
-    buffer:close()
-    gui.goto_view(-1, true)
-    if view.size == 353 then view:unsplit() end
-  else
-    buffer:close()
-  end
-end
-
 -- Insert a filename: `Ctrl`+`Alt/⌘`+`Shift`+`O`
 keys[OSX and 'cmO' or 'caO'] = M.filename.insert_filename
 
