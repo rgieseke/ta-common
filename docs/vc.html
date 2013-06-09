@@ -99,7 +99,6 @@ snapopen dialog.</p>
     <span class="k">end</span>
     <span class="k">local</span> utf8_filenames = gui.filteredlist(_L[<span class="s">'Open'</span>], {__L[<span class="s">'File'</span>], <span class="s">'Status'</span>}, items, <span class="k">false</span>,
                                           <span class="s">'--select-multiple'</span>) <span class="o">or</span> <span class="s">''</span>
-    gui.statusbar_text = utf8_filenames
     <span class="k">for</span> filename <span class="k">in</span> utf8_filenames:gmatch(<span class="s">'[^\n]+'</span>) <span class="k">do</span>
       io.open_file(hg_root..<span class="s">'/'</span>..filename)
     <span class="k">end</span>
