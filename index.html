@@ -90,20 +90,8 @@ The submodules can also be used independently:</p>
 M.ack = <span class="nt">require</span> <span class="s">'common.ack'</span>
 M.bracematching = <span class="nt">require</span> <span class="s">'common.bracematching'</span>
 <span class="nt">require</span> <span class="s">'common.comments'</span>
-</pre></div>
-</td>
-</tr><tr id="section-2">
-<td class="docs">
-  <div class="pilwrap">
-    <a class="pilcrow" href="#section-2">&#182;</a>
-  </div>
-  
-<p>M.display<em>filename = require 'common.display</em>filename'</p>
-
-
-</td>
-<td class="code">
-  <div class="highlight"><pre>M.enclose = <span class="nt">require</span> <span class="s">'common.enclose'</span>
+M.display_filename = <span class="nt">require</span> <span class="s">'common.display_filename'</span>
+M.enclose = <span class="nt">require</span> <span class="s">'common.enclose'</span>
 M.filename = <span class="nt">require</span> <span class="s">'common.filename'</span>
 <span class="k">if</span> <span class="o">not</span> CURSES <span class="k">then</span> <span class="nt">require</span> <span class="s">'common.highlight'</span> <span class="k">end</span>
 M.lastbuffer = <span class="nt">require</span> <span class="s">'common.lastbuffer'</span>
@@ -114,10 +102,10 @@ M.vc = <span class="nt">require</span> <span class="s">'common.vc'</span>
 
 </pre></div>
 </td>
-</tr><tr id="section-3">
+</tr><tr id="section-2">
 <td class="docs">
   <div class="pilwrap">
-    <a class="pilcrow" href="#section-3">&#182;</a>
+    <a class="pilcrow" href="#section-2">&#182;</a>
   </div>
   
 <h2>Key commands</h2>
@@ -128,10 +116,10 @@ M.vc = <span class="nt">require</span> <span class="s">'common.vc'</span>
   <div class="highlight"><pre><span class="k">local</span> keys = keys
 </pre></div>
 </td>
-</tr><tr id="section-4">
+</tr><tr id="section-3">
 <td class="docs">
   <div class="pilwrap">
-    <a class="pilcrow" href="#section-4">&#182;</a>
+    <a class="pilcrow" href="#section-3">&#182;</a>
   </div>
   
 <p>Snapopen.<br>
@@ -153,10 +141,10 @@ keys[OSX <span class="o">and</span> <span class="s">'mp'</span> <span class="o">
 <span class="k">end</span>
 </pre></div>
 </td>
-</tr><tr id="section-5">
+</tr><tr id="section-4">
 <td class="docs">
   <div class="pilwrap">
-    <a class="pilcrow" href="#section-5">&#182;</a>
+    <a class="pilcrow" href="#section-4">&#182;</a>
   </div>
   
 <p>Insert a filename: <code>Ctrl</code>+<code>Alt/⌘</code>+<code>Shift</code>+<code>O</code></p>
@@ -167,10 +155,10 @@ keys[OSX <span class="o">and</span> <span class="s">'mp'</span> <span class="o">
   <div class="highlight"><pre>keys[OSX <span class="o">and</span> <span class="s">'cmO'</span> <span class="o">or</span> <span class="s">'caO'</span>] = M.filename.insert_filename
 </pre></div>
 </td>
-</tr><tr id="section-6">
+</tr><tr id="section-5">
 <td class="docs">
   <div class="pilwrap">
-    <a class="pilcrow" href="#section-6">&#182;</a>
+    <a class="pilcrow" href="#section-5">&#182;</a>
   </div>
   
 <p>Save and reset Lua state: <code>F9</code></p>
@@ -184,10 +172,10 @@ keys[OSX <span class="o">and</span> <span class="s">'mp'</span> <span class="o">
 <span class="k">end</span> }
 </pre></div>
 </td>
-</tr><tr id="section-7">
+</tr><tr id="section-6">
 <td class="docs">
   <div class="pilwrap">
-    <a class="pilcrow" href="#section-7">&#182;</a>
+    <a class="pilcrow" href="#section-6">&#182;</a>
   </div>
   
 <p>Open command entry for ack/Lua search: <code>Ctrl</code>+<code>Alt/⌘</code>+<code>K</code><br>
@@ -200,10 +188,10 @@ or  ack search, <code>Ctrl</code>+<code>K</code>.</p>
   <div class="highlight"><pre>keys.cmk = M.ack.search_entry
 </pre></div>
 </td>
-</tr><tr id="section-8">
+</tr><tr id="section-7">
 <td class="docs">
   <div class="pilwrap">
-    <a class="pilcrow" href="#section-8">&#182;</a>
+    <a class="pilcrow" href="#section-7">&#182;</a>
   </div>
   
 <p>Go to the matching brace: <code>Ctrl</code>+<code>M</code></p>
@@ -214,10 +202,10 @@ or  ack search, <code>Ctrl</code>+<code>K</code>.</p>
   <div class="highlight"><pre>keys.cm = M.bracematching.match_brace
 </pre></div>
 </td>
-</tr><tr id="section-9">
+</tr><tr id="section-8">
 <td class="docs">
   <div class="pilwrap">
-    <a class="pilcrow" href="#section-9">&#182;</a>
+    <a class="pilcrow" href="#section-8">&#182;</a>
   </div>
   
 <p>Add another cursor position: <code>Ctrl</code>+<code>Shift</code>+<code>M</code><br>
@@ -230,10 +218,10 @@ Select all occurrences of a word: <code>Ctrl</code>+<code>Alt/⌘</code>+<code>S
 keys[OSX <span class="o">and</span> <span class="s">'cmM'</span> <span class="o">or</span> <span class="s">'caM'</span>] = M.multiedit.select_all
 </pre></div>
 </td>
-</tr><tr id="section-10">
+</tr><tr id="section-9">
 <td class="docs">
   <div class="pilwrap">
-    <a class="pilcrow" href="#section-10">&#182;</a>
+    <a class="pilcrow" href="#section-9">&#182;</a>
   </div>
   
 <p>Switch to last buffer: <code>Ctrl</code>+<code>2</code></p>
@@ -244,10 +232,10 @@ keys[OSX <span class="o">and</span> <span class="s">'cmM'</span> <span class="o"
   <div class="highlight"><pre>keys.c2 = M.lastbuffer.last_buffer
 </pre></div>
 </td>
-</tr><tr id="section-11">
+</tr><tr id="section-10">
 <td class="docs">
   <div class="pilwrap">
-    <a class="pilcrow" href="#section-11">&#182;</a>
+    <a class="pilcrow" href="#section-10">&#182;</a>
   </div>
   
 <p>Switch buffer dialog:<br>
@@ -261,10 +249,10 @@ keys[OSX and 'mb' or 'ab'] = M.display</em>filename.switch_buffer</p>
   <div class="highlight"><pre>
 </pre></div>
 </td>
-</tr><tr id="section-12">
+</tr><tr id="section-11">
 <td class="docs">
   <div class="pilwrap">
-    <a class="pilcrow" href="#section-12">&#182;</a>
+    <a class="pilcrow" href="#section-11">&#182;</a>
   </div>
   
 <p>Show hg status (or project folder) in snapopen dialog:<br>
@@ -278,10 +266,10 @@ keys[OSX and 'mb' or 'ab'] = M.display</em>filename.switch_buffer</p>
 <span class="k">end</span>
 </pre></div>
 </td>
-</tr><tr id="section-13">
+</tr><tr id="section-12">
 <td class="docs">
   <div class="pilwrap">
-    <a class="pilcrow" href="#section-13">&#182;</a>
+    <a class="pilcrow" href="#section-12">&#182;</a>
   </div>
   
 <p>Enclose selection or insert chars: <code>'</code> , <code>"</code>, <code>(</code>, <code>[</code>, <code>{</code></p>
@@ -296,10 +284,10 @@ keys[<span class="s">'['</span>] = { M.enclose.enclose_selection, <span class="s
 keys[<span class="s">'{'</span>] = { M.enclose.enclose_selection, <span class="s">'{'</span>, <span class="s">'}'</span> }
 </pre></div>
 </td>
-</tr><tr id="section-14">
+</tr><tr id="section-13">
 <td class="docs">
   <div class="pilwrap">
-    <a class="pilcrow" href="#section-14">&#182;</a>
+    <a class="pilcrow" href="#section-13">&#182;</a>
   </div>
   
 <p>Enclose selection and keep selection or insert single char
