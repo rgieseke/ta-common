@@ -31,15 +31,14 @@ local M = {}
 M.ack = require 'common.ack'
 M.bracematching = require 'common.bracematching'
 require 'common.comments'
-M.ctags = require 'common.ctags'
-M.display_filename = require 'common.display_filename'
+--M.display_filename = require 'common.display_filename'
 M.enclose = require 'common.enclose'
 M.filename = require 'common.filename'
+require 'common.highlight'
 M.lastbuffer = require 'common.lastbuffer'
 M.multiedit = require 'common.multiedit'
 M.project = require 'common.project'
 require 'common.save_strips_ws'
-require 'common.theming'
 M.vc = require 'common.vc'
 
 
@@ -51,21 +50,21 @@ local keys = keys
 -- Textadept home: `Alt/⌘`+`Shift`+`U`<br>
 -- User home : `Alt/⌘`+`U`<br>
 -- Current project `Alt/⌘`+`P`<br>
-keys[OSX and 'mU' or 'aU'] = { _M.textadept.snapopen.open, { _HOME }, { '.+%.luadoc',
+keys[OSX and 'mU' or 'aU'] = { io.snapopen, _HOME, { '.+%.luadoc',
               folders = { 'images', 'doc', 'manual', '%.hg', '%.git' } } }
-keys[OSX and 'mu' or 'au'] = { _M.textadept.snapopen.open, { _USERHOME },
+keys[OSX and 'mu' or 'au'] = { io.snapopen, _USERHOME,
               { folders = { '%.hg', '%.git' } } }
 keys[OSX and 'mp' or 'ap'] = function ()
   local root = _M.common.project.root()
-  _M.textadept.snapopen.open({ root }, { 'pyc$', folders = { '%.hg', '%.git'} })
+  io.snapopen(root, { 'pyc$'})
 end
 
 -- Close view with message/error buffer and unsplit: `Ctrl/⌘`+`W`
 keys[OSX and 'mw' or 'cw']= function()
-  if buffer._type then
+  if buffer._type and not buffer._textredux then
     buffer:close()
     gui.goto_view(-1, true)
-    view:unsplit()
+    if view.size == 353 then view:unsplit() end
   else
     buffer:close()
   end
@@ -88,9 +87,6 @@ keys.cmk = M.ack.search_entry
 -- Go to the matching brace: `Ctrl`+`M`
 keys.cm = M.bracematching.match_brace
 
--- Open filtered list with symbols using ctags: `Alt/⌘`+`G`
-keys[OSX and 'cmg' or 'cag'] = M.ctags.goto_symbol
-
 -- Add another cursor position: `Ctrl`+`Shift`+`M`<br>
 -- Select all occurrences of a word: `Ctrl`+`Alt/⌘`+`Shift`+`M`
 keys.cM = M.multiedit.add_position
@@ -102,7 +98,7 @@ keys.c2 = M.lastbuffer.last_buffer
 -- Switch buffer dialog:<br>
 -- `Ctrl`+`B` or `⌘`+`B` (OS X)<br>
 -- See [display_filename.lua](display_filename.html).
-keys[OSX and 'mb' or 'ab'] = M.display_filename.switch_buffer
+--keys[OSX and 'mb' or 'ab'] = M.display_filename.switch_buffer
 
 -- Show hg status (or project folder) in snapopen dialog:<br>
 -- `Ctrl`+`Alt/⌘`+`P`
