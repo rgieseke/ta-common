@@ -16,17 +16,16 @@
   <a class="source" href="ack.html">common/ack.lua</a>
   <a class="source" href="bracematching.html">common/bracematching.lua</a>
   <a class="source" href="comments.html">common/comments.lua</a>
-  <a class="source" href="ctags.html">common/ctags.lua</a>
   <a class="source" href="display_filename.html">common/display_filename.lua</a>
   <a class="source" href="enclose.html">common/enclose.lua</a>
   <a class="source" href="filename.html">common/filename.lua</a>
   <a class="source" href="findall.html">common/findall.lua</a>
+  <a class="source" href="highlight.html">common/highlight.lua</a>
   <a class="source" href="index.html">common/init.lua</a>
   <a class="source" href="lastbuffer.html">common/lastbuffer.lua</a>
   <a class="source" href="multiedit.html">common/multiedit.lua</a>
   <a class="source" href="project.html">common/project.lua</a>
   <a class="source" href="save_strips_ws.html">common/save_strips_ws.lua</a>
-  <a class="source" href="theming.html">common/theming.lua</a>
   <a class="source" href="vc.html">common/vc.lua</a>
     </div>
   </div>
@@ -100,6 +99,7 @@ snapopen dialog.</p>
     <span class="k">end</span>
     <span class="k">local</span> utf8_filenames = gui.filteredlist(_L[<span class="s">'Open'</span>], {__L[<span class="s">'File'</span>], <span class="s">'Status'</span>}, items, <span class="k">false</span>,
                                           <span class="s">'--select-multiple'</span>) <span class="o">or</span> <span class="s">''</span>
+    gui.statusbar_text = utf8_filenames
     <span class="k">for</span> filename <span class="k">in</span> utf8_filenames:gmatch(<span class="s">'[^\n]+'</span>) <span class="k">do</span>
       io.open_file(hg_root..<span class="s">'/'</span>..filename)
     <span class="k">end</span>

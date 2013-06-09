@@ -16,17 +16,16 @@
   <a class="source" href="ack.html">common/ack.lua</a>
   <a class="source" href="bracematching.html">common/bracematching.lua</a>
   <a class="source" href="comments.html">common/comments.lua</a>
-  <a class="source" href="ctags.html">common/ctags.lua</a>
   <a class="source" href="display_filename.html">common/display_filename.lua</a>
   <a class="source" href="enclose.html">common/enclose.lua</a>
   <a class="source" href="filename.html">common/filename.lua</a>
   <a class="source" href="findall.html">common/findall.lua</a>
+  <a class="source" href="highlight.html">common/highlight.lua</a>
   <a class="source" href="index.html">common/init.lua</a>
   <a class="source" href="lastbuffer.html">common/lastbuffer.lua</a>
   <a class="source" href="multiedit.html">common/multiedit.lua</a>
   <a class="source" href="project.html">common/project.lua</a>
   <a class="source" href="save_strips_ws.html">common/save_strips_ws.lua</a>
-  <a class="source" href="theming.html">common/theming.lua</a>
   <a class="source" href="vc.html">common/vc.lua</a>
     </div>
   </div>
@@ -91,23 +90,34 @@ The submodules can also be used independently:</p>
 M.ack = <span class="nt">require</span> <span class="s">'common.ack'</span>
 M.bracematching = <span class="nt">require</span> <span class="s">'common.bracematching'</span>
 <span class="nt">require</span> <span class="s">'common.comments'</span>
-M.ctags = <span class="nt">require</span> <span class="s">'common.ctags'</span>
-M.display_filename = <span class="nt">require</span> <span class="s">'common.display_filename'</span>
-M.enclose = <span class="nt">require</span> <span class="s">'common.enclose'</span>
-M.filename = <span class="nt">require</span> <span class="s">'common.filename'</span>
-M.lastbuffer = <span class="nt">require</span> <span class="s">'common.lastbuffer'</span>
-M.multiedit = <span class="nt">require</span> <span class="s">'common.multiedit'</span>
-M.project = <span class="nt">require</span> <span class="s">'common.project'</span>
-<span class="nt">require</span> <span class="s">'common.save_strips_ws'</span>
-<span class="nt">require</span> <span class="s">'common.theming'</span>
-M.vc = <span class="nt">require</span> <span class="s">'common.vc'</span>
-
 </pre></div>
 </td>
 </tr><tr id="section-2">
 <td class="docs">
   <div class="pilwrap">
     <a class="pilcrow" href="#section-2">&#182;</a>
+  </div>
+  
+<p>M.display<em>filename = require 'common.display</em>filename'</p>
+
+
+</td>
+<td class="code">
+  <div class="highlight"><pre>M.enclose = <span class="nt">require</span> <span class="s">'common.enclose'</span>
+M.filename = <span class="nt">require</span> <span class="s">'common.filename'</span>
+<span class="k">if</span> <span class="o">not</span> CURSES <span class="k">then</span> <span class="nt">require</span> <span class="s">'common.highlight'</span> <span class="k">end</span>
+M.lastbuffer = <span class="nt">require</span> <span class="s">'common.lastbuffer'</span>
+M.multiedit = <span class="nt">require</span> <span class="s">'common.multiedit'</span>
+M.project = <span class="nt">require</span> <span class="s">'common.project'</span>
+<span class="nt">require</span> <span class="s">'common.save_strips_ws'</span>
+M.vc = <span class="nt">require</span> <span class="s">'common.vc'</span>
+
+</pre></div>
+</td>
+</tr><tr id="section-3">
+<td class="docs">
+  <div class="pilwrap">
+    <a class="pilcrow" href="#section-3">&#182;</a>
   </div>
   
 <h2>Key commands</h2>
@@ -118,10 +128,10 @@ M.vc = <span class="nt">require</span> <span class="s">'common.vc'</span>
   <div class="highlight"><pre><span class="k">local</span> keys = keys
 </pre></div>
 </td>
-</tr><tr id="section-3">
+</tr><tr id="section-4">
 <td class="docs">
   <div class="pilwrap">
-    <a class="pilcrow" href="#section-3">&#182;</a>
+    <a class="pilcrow" href="#section-4">&#182;</a>
   </div>
   
 <p>Snapopen.<br>
@@ -133,35 +143,13 @@ Current project <code>Alt/⌘</code>+<code>P</code><br></p>
 
 </td>
 <td class="code">
-  <div class="highlight"><pre>keys[OSX <span class="o">and</span> <span class="s">'mU'</span> <span class="o">or</span> <span class="s">'aU'</span>] = { __M.textadept.snapopen.open, { _HOME }, { <span class="s">'.+&#37;.luadoc'</span>,
+  <div class="highlight"><pre>keys[OSX <span class="o">and</span> <span class="s">'mU'</span> <span class="o">or</span> <span class="s">'aU'</span>] = { io.snapopen, _HOME, { <span class="s">'.+&#37;.luadoc'</span>,
               folders = { <span class="s">'images'</span>, <span class="s">'doc'</span>, <span class="s">'manual'</span>, <span class="s">'&#37;.hg'</span>, <span class="s">'&#37;.git'</span> } } }
-keys[OSX <span class="o">and</span> <span class="s">'mu'</span> <span class="o">or</span> <span class="s">'au'</span>] = { __M.textadept.snapopen.open, { _USERHOME },
+keys[OSX <span class="o">and</span> <span class="s">'mu'</span> <span class="o">or</span> <span class="s">'au'</span>] = { io.snapopen, _USERHOME,
               { folders = { <span class="s">'&#37;.hg'</span>, <span class="s">'&#37;.git'</span> } } }
 keys[OSX <span class="o">and</span> <span class="s">'mp'</span> <span class="o">or</span> <span class="s">'ap'</span>] = <span class="k">function</span> ()
   <span class="k">local</span> root = _M.common.project.root()
-  _M.textadept.snapopen.open({ root }, { <span class="s">'pyc$'</span>, folders = { <span class="s">'&#37;.hg'</span>, <span class="s">'&#37;.git'</span>} })
-<span class="k">end</span>
-</pre></div>
-</td>
-</tr><tr id="section-4">
-<td class="docs">
-  <div class="pilwrap">
-    <a class="pilcrow" href="#section-4">&#182;</a>
-  </div>
-  
-<p>Close view with message/error buffer and unsplit: <code>Ctrl/⌘</code>+<code>W</code></p>
-
-
-</td>
-<td class="code">
-  <div class="highlight"><pre>keys[OSX <span class="o">and</span> <span class="s">'mw'</span> <span class="o">or</span> <span class="s">'cw'</span>]= <span class="k">function</span>()
-  <span class="k">if</span> buffer._<span class="nt">type</span> <span class="k">then</span>
-    buffer:close()
-    gui.goto_view(-1, <span class="k">true</span>)
-    view:unsplit()
-  <span class="k">else</span>
-    buffer:close()
-  <span class="k">end</span>
+  io.snapopen(root, { <span class="s">'pyc$'</span>})
 <span class="k">end</span>
 </pre></div>
 </td>
@@ -232,20 +220,6 @@ or  ack search, <code>Ctrl</code>+<code>K</code>.</p>
     <a class="pilcrow" href="#section-9">&#182;</a>
   </div>
   
-<p>Open filtered list with symbols using ctags: <code>Alt/⌘</code>+<code>G</code></p>
-
-
-</td>
-<td class="code">
-  <div class="highlight"><pre>keys[OSX <span class="o">and</span> <span class="s">'cmg'</span> <span class="o">or</span> <span class="s">'cag'</span>] = M.ctags.goto_symbol
-</pre></div>
-</td>
-</tr><tr id="section-10">
-<td class="docs">
-  <div class="pilwrap">
-    <a class="pilcrow" href="#section-10">&#182;</a>
-  </div>
-  
 <p>Add another cursor position: <code>Ctrl</code>+<code>Shift</code>+<code>M</code><br>
 Select all occurrences of a word: <code>Ctrl</code>+<code>Alt/⌘</code>+<code>Shift</code>+<code>M</code></p>
 
@@ -256,10 +230,10 @@ Select all occurrences of a word: <code>Ctrl</code>+<code>Alt/⌘</code>+<code>S
 keys[OSX <span class="o">and</span> <span class="s">'cmM'</span> <span class="o">or</span> <span class="s">'caM'</span>] = M.multiedit.select_all
 </pre></div>
 </td>
-</tr><tr id="section-11">
+</tr><tr id="section-10">
 <td class="docs">
   <div class="pilwrap">
-    <a class="pilcrow" href="#section-11">&#182;</a>
+    <a class="pilcrow" href="#section-10">&#182;</a>
   </div>
   
 <p>Switch to last buffer: <code>Ctrl</code>+<code>2</code></p>
@@ -270,26 +244,27 @@ keys[OSX <span class="o">and</span> <span class="s">'cmM'</span> <span class="o"
   <div class="highlight"><pre>keys.c2 = M.lastbuffer.last_buffer
 </pre></div>
 </td>
-</tr><tr id="section-12">
+</tr><tr id="section-11">
 <td class="docs">
   <div class="pilwrap">
-    <a class="pilcrow" href="#section-12">&#182;</a>
+    <a class="pilcrow" href="#section-11">&#182;</a>
   </div>
   
 <p>Switch buffer dialog:<br>
 <code>Ctrl</code>+<code>B</code> or <code>⌘</code>+<code>B</code> (OS X)<br>
-See <a href="display_filename.html">display_filename.lua</a>.</p>
+See <a href="display_filename.html">display<em>filename.lua</a>.
+keys[OSX and 'mb' or 'ab'] = M.display</em>filename.switch_buffer</p>
 
 
 </td>
 <td class="code">
-  <div class="highlight"><pre>keys[OSX <span class="o">and</span> <span class="s">'mb'</span> <span class="o">or</span> <span class="s">'ab'</span>] = M.display_filename.switch_buffer
+  <div class="highlight"><pre>
 </pre></div>
 </td>
-</tr><tr id="section-13">
+</tr><tr id="section-12">
 <td class="docs">
   <div class="pilwrap">
-    <a class="pilcrow" href="#section-13">&#182;</a>
+    <a class="pilcrow" href="#section-12">&#182;</a>
   </div>
   
 <p>Show hg status (or project folder) in snapopen dialog:<br>
@@ -303,10 +278,10 @@ See <a href="display_filename.html">display_filename.lua</a>.</p>
 <span class="k">end</span>
 </pre></div>
 </td>
-</tr><tr id="section-14">
+</tr><tr id="section-13">
 <td class="docs">
   <div class="pilwrap">
-    <a class="pilcrow" href="#section-14">&#182;</a>
+    <a class="pilcrow" href="#section-13">&#182;</a>
   </div>
   
 <p>Enclose selection or insert chars: <code>'</code> , <code>"</code>, <code>(</code>, <code>[</code>, <code>{</code></p>
@@ -321,10 +296,10 @@ keys[<span class="s">'['</span>] = { M.enclose.enclose_selection, <span class="s
 keys[<span class="s">'{'</span>] = { M.enclose.enclose_selection, <span class="s">'{'</span>, <span class="s">'}'</span> }
 </pre></div>
 </td>
-</tr><tr id="section-15">
+</tr><tr id="section-14">
 <td class="docs">
   <div class="pilwrap">
-    <a class="pilcrow" href="#section-15">&#182;</a>
+    <a class="pilcrow" href="#section-14">&#182;</a>
   </div>
   
 <p>Enclose selection and keep selection or insert single char
