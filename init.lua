@@ -30,7 +30,6 @@ local M = {}
 
 M.ack = require 'common.ack'
 M.bracematching = require 'common.bracematching'
-require 'common.comments'
 M.display_filename = require 'common.display_filename'
 M.enclose = require 'common.enclose'
 M.filename = require 'common.filename'
