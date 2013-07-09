@@ -22,6 +22,8 @@ events.connect(events.VIEW_BEFORE_SWITCH, function() inactive() end)
 events.connect(events.VIEW_AFTER_SWITCH, function() active() end)
 events.connect(events.BUFFER_AFTER_SWITCH, function() active() end)
 events.connect(events.BUFFER_NEW, function() active() end)
+events.connect(events.FILE_OPENED, function() active() end)
+events.connect(events.RESET_AFTER, function() active() end)
 
 events.connect(events.BUFFER_AFTER_SWITCH, function()
   local buffer = buffer
