@@ -15,7 +15,6 @@
   <div id="jump_page">
   <a class="source" href="ack.html">common/ack.lua</a>
   <a class="source" href="bracematching.html">common/bracematching.lua</a>
-  <a class="source" href="comments.html">common/comments.lua</a>
   <a class="source" href="display_filename.html">common/display_filename.lua</a>
   <a class="source" href="enclose.html">common/enclose.lua</a>
   <a class="source" href="filename.html">common/filename.lua</a>
@@ -78,6 +77,8 @@ events.connect(events.VIEW_BEFORE_SWITCH, <span class="k">function</span>() inac
 events.connect(events.VIEW_AFTER_SWITCH, <span class="k">function</span>() active() <span class="k">end</span>)
 events.connect(events.BUFFER_AFTER_SWITCH, <span class="k">function</span>() active() <span class="k">end</span>)
 events.connect(events.BUFFER_NEW, <span class="k">function</span>() active() <span class="k">end</span>)
+events.connect(events.FILE_OPENED, <span class="k">function</span>() active() <span class="k">end</span>)
+events.connect(events.RESET_AFTER, <span class="k">function</span>() active() <span class="k">end</span>)
 
 events.connect(events.BUFFER_AFTER_SWITCH, <span class="k">function</span>()
   <span class="k">local</span> buffer = buffer
