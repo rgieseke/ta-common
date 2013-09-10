@@ -4,7 +4,7 @@ local M = {}
 
 -- ## Setup
 local events = events
-local m_editing = _M.textadept.editing
+local m_editing = textadept.editing
 local keys = keys
 local string_char = string.char
 

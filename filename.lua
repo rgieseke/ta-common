@@ -11,7 +11,7 @@ function M.insert_filename()
     current_dir = _HOME
   end
   filename =
-      gui.dialog('fileselect',
+      ui.dialog('fileselect',
                  '--title', "Insert filename",
                  '--select-multiple',
                  '--with-directory', current_dir)

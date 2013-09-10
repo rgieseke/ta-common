@@ -40,9 +40,7 @@ M.project = require 'common.project'
 require 'common.save_strips_ws'
 M.vc = require 'common.vc'
 
-
 -- ## Key commands
-local keys = keys
 
 -- Snapopen.<br>
 -- (Filtering out some folders and file extensions)<br>
@@ -63,7 +61,7 @@ keys[OSX and 'cmO' or 'caO'] = M.filename.insert_filename
 
 -- Save and reset Lua state: `F9`
 keys['f9'] = { function()
-  buffer:save()
+  io.save_file()
   reset()
 end }
 
@@ -71,6 +69,7 @@ end }
 -- In the command entry, switch to Lua find in files, `Ctrl`+`L`,
 -- or  ack search, `Ctrl`+`K`.
 keys.cmk = M.ack.search_entry
+
 
 -- Go to the matching brace: `Ctrl`+`M`
 keys.cm = M.bracematching.match_brace

@@ -8,7 +8,7 @@ local M = {}
 -- ## Setup
 
 -- Disable default highlighting of matching braces.
-_M.textadept.editing.HIGHLIGHT_BRACES = false
+textadept.editing.HIGHLIGHT_BRACES = false
 
 -- Table with char codes as indices.
 braces = { -- () [] {}

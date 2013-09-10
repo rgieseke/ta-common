@@ -10,7 +10,7 @@
 -- with
 --     ~/...
 --
--- Modified from Textadept's `core.gui` module.
+-- Modified from Textadept's `core.ui. module.
 
 -- ## Fields
 
@@ -34,7 +34,7 @@ local function set_title(buffer)
   local buffer = buffer
   local filename = buffer.filename or buffer._type or _L['Untitled']
   local dirty = buffer.dirty and '*' or '-'
-  gui.title = string.format('%s %s Textadept (%s)', filename:match('[^/\\]+$'),
+  ui.title = string.format('%s %s Textadept (%s)', filename:match('[^/\\]+$'),
                             dirty, filename:gsub(pattern, replacement))
 end
 
