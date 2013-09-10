@@ -17,7 +17,7 @@ function M.hg_status()
   local ans = f:read("*a")
   f:close()
   if ans:match(".hg not found") then
-     _M.textadept.snapopen.open(path)
+    io.snapopen(path)
   else
     local hg_root = ans:sub(1,-2)
     command = cd_path..' && hg st -amdcu 2>&1'
@@ -30,7 +30,7 @@ function M.hg_status()
       items[#items+1] = fname
       items[#items+1] = fstatus
     end
-    local utf8_filenames = gui.filteredlist(_L['Open'], {_L['File'], 'Status'}, items, false,
+    local utf8_filenames = ui.filteredlist(_L['Open'], {_L['File'], 'Status'}, items, false,
                                           '--select-multiple') or ''
     for filename in utf8_filenames:gmatch('[^\n]+') do
       io.open_file(hg_root..'/'..filename)
