@@ -38,7 +38,6 @@ M.lastbuffer = require 'common.lastbuffer'
 M.multiedit = require 'common.multiedit'
 M.project = require 'common.project'
 require 'common.save_strips_ws'
-M.vc = require 'common.vc'
 
 -- ## Key commands
 
@@ -86,12 +85,6 @@ keys.c2 = M.lastbuffer.last_buffer
 -- `Ctrl`+`B` or `⌘`+`B` (OS X)<br>
 -- See [display_filename.lua](display_filename.html).
 --keys[OSX and 'mb' or 'ab'] = M.display_filename.switch_buffer
-
--- Show hg status (or project folder) in snapopen dialog:<br>
--- `Ctrl`+`Alt/⌘`+`P`
-keys[OSX and 'cmp' or 'cap'] = function()
-  if buffer.filename then M.vc.hg_status( ) end
-end
 
 -- Enclose selection or insert chars: `'` , `"`, `(`, `[`, `{`
 keys["'"] = { M.enclose.enclose_selection, "'", "'" }
