@@ -25,7 +25,6 @@
   <a class="source" href="multiedit.html">common/multiedit.lua</a>
   <a class="source" href="project.html">common/project.lua</a>
   <a class="source" href="save_strips_ws.html">common/save_strips_ws.lua</a>
-  <a class="source" href="vc.html">common/vc.lua</a>
     </div>
   </div>
 </div>
@@ -48,10 +47,8 @@
   <div class="pilwrap">
     <a class="pilcrow" href="#section-1">&#182;</a>
   </div>
-  
-<p>This module adds functions for enclosing selections with a single key
+  <p>This module adds functions for enclosing selections with a single key
 and for inserting single chars with a short cut.</p>
-
 
 </td>
 <td class="code">
@@ -63,14 +60,12 @@ and for inserting single chars with a short cut.</p>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-2">&#182;</a>
   </div>
-  
-<h2>Setup</h2>
-
+  <h2>Setup</h2>
 
 </td>
 <td class="code">
   <div class="highlight"><pre><span class="k">local</span> events = events
-<span class="k">local</span> m_editing = _M.textadept.editing
+<span class="k">local</span> m_editing = textadept.editing
 <span class="k">local</span> keys = keys
 <span class="k">local</span> string_char = string.char
 </pre></div>
@@ -80,9 +75,7 @@ and for inserting single chars with a short cut.</p>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-3">&#182;</a>
   </div>
-  
-<p>Table with char codes as indices.</p>
-
+  <p>Table with char codes as indices.</p>
 
 </td>
 <td class="code">
@@ -98,9 +91,7 @@ and for inserting single chars with a short cut.</p>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-4">&#182;</a>
   </div>
-  
-<h2>Commands</h2>
-
+  <h2>Commands</h2>
 
 </td>
 <td class="code">
@@ -112,12 +103,10 @@ and for inserting single chars with a short cut.</p>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-5">&#182;</a>
   </div>
-  
-<p>Enclose selected text.<br>
+  <p>Enclose selected text.<br>
 Parameters:<br>
 <em>left</em>: char on the left<br>
 <em>right</em>: char on the right</p>
-
 
 </td>
 <td class="code">
@@ -135,14 +124,12 @@ Parameters:<br>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-6">&#182;</a>
   </div>
-  
-<p>Encloses selected text and keeps the selection for another enclosure.
+  <p>Encloses selected text and keeps the selection for another enclosure.
 If nothing is selected, the char is inserted. Useful to avoid automatically
 matched braces.<br>
 Parameters:<br>
 <em>left</em>: char on the left<br>
 <em>right</em>: char on the right</p>
-
 
 </td>
 <td class="code">
