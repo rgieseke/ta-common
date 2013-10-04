@@ -25,7 +25,6 @@
   <a class="source" href="multiedit.html">common/multiedit.lua</a>
   <a class="source" href="project.html">common/project.lua</a>
   <a class="source" href="save_strips_ws.html">common/save_strips_ws.lua</a>
-  <a class="source" href="vc.html">common/vc.lua</a>
     </div>
   </div>
 </div>
@@ -48,10 +47,8 @@
   <div class="pilwrap">
     <a class="pilcrow" href="#section-1">&#182;</a>
   </div>
-  
-<p>Inserts a filename with a (if possible) relative path
+  <p>Inserts a filename with a (if possible) relative path
 from a file select dialog.</p>
-
 
 </td>
 <td class="code">
@@ -63,9 +60,7 @@ from a file select dialog.</p>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-2">&#182;</a>
   </div>
-  
-<h2>Commands</h2>
-
+  <h2>Commands</h2>
 
 </td>
 <td class="code">
@@ -77,9 +72,7 @@ from a file select dialog.</p>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-3">&#182;</a>
   </div>
-  
-<p>Opens a file select dialog and inserts filename in the buffer.</p>
-
+  <p>Opens a file select dialog and inserts filename in the buffer.</p>
 
 </td>
 <td class="code">
@@ -89,7 +82,7 @@ from a file select dialog.</p>
     current_dir = _HOME
   <span class="k">end</span>
   filename =
-      gui.dialog(<span class="s">'fileselect'</span>,
+      ui.dialog(<span class="s">'fileselect'</span>,
                  <span class="s">'--title'</span>, <span class="s">"Insert filename"</span>,
                  <span class="s">'--select-multiple'</span>,
                  <span class="s">'--with-directory'</span>, current_dir)

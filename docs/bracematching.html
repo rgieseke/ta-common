@@ -25,7 +25,6 @@
   <a class="source" href="multiedit.html">common/multiedit.lua</a>
   <a class="source" href="project.html">common/project.lua</a>
   <a class="source" href="save_strips_ws.html">common/save_strips_ws.lua</a>
-  <a class="source" href="vc.html">common/vc.lua</a>
     </div>
   </div>
 </div>
@@ -48,13 +47,11 @@
   <div class="pilwrap">
     <a class="pilcrow" href="#section-1">&#182;</a>
   </div>
-  
-<p>Highlight and match braces before and after a brace.
+  <p>Highlight and match braces before and after a brace.
 Modified from
-<a href="http://code.google.com/p/textadept/source/browse/modules/textadept/editing.lua">Textadept's editing.lua</a>.
-Textadept's default is to only match the brace to the right which can be
+<a href="http://code.google.com/p/textadept/source/browse/modules/textadept/editing.lua">Textadept&rsquo;s editing.lua</a>.
+Textadept&rsquo;s default is to only match the brace to the right which can be
 preferable if a block caret is used.</p>
-
 
 </td>
 <td class="code">
@@ -66,9 +63,7 @@ preferable if a block caret is used.</p>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-2">&#182;</a>
   </div>
-  
-<h2>Setup</h2>
-
+  <h2>Setup</h2>
 
 </td>
 <td class="code">
@@ -80,13 +75,11 @@ preferable if a block caret is used.</p>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-3">&#182;</a>
   </div>
-  
-<p>Disable default highlighting of matching braces.</p>
-
+  <p>Disable default highlighting of matching braces.</p>
 
 </td>
 <td class="code">
-  <div class="highlight"><pre>__M.textadept.editing.HIGHLIGHT_BRACES = <span class="k">false</span>
+  <div class="highlight"><pre>textadept.editing.HIGHLIGHT_BRACES = <span class="k">false</span>
 </pre></div>
 </td>
 </tr><tr id="section-4">
@@ -94,9 +87,7 @@ preferable if a block caret is used.</p>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-4">&#182;</a>
   </div>
-  
-<p>Table with char codes as indices.</p>
-
+  <p>Table with char codes as indices.</p>
 
 </td>
 <td class="code">
@@ -111,9 +102,7 @@ preferable if a block caret is used.</p>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-5">&#182;</a>
   </div>
-  
-<h2>Commands</h2>
-
+  <h2>Commands</h2>
 
 </td>
 <td class="code">
@@ -125,10 +114,8 @@ preferable if a block caret is used.</p>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-6">&#182;</a>
   </div>
-  
-<p>Highlights matching braces, before and after a brace.
+  <p>Highlights matching braces, before and after a brace.
 Between two braces preference is to the left.</p>
-
 
 </td>
 <td class="code">
@@ -154,11 +141,9 @@ Between two braces preference is to the left.</p>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-7">&#182;</a>
   </div>
-  
-<p>Goes to a matching brace position, selecting the text inside if specified.<br>
+  <p>Goes to a matching brace position, selecting the text inside if specified.<br>
 Parameter:<br>
 <em>select</em>: If true, selects the text between matching braces.</p>
-
 
 </td>
 <td class="code">
