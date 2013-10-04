@@ -22,7 +22,7 @@ or clone the git repository:
 
 Put
 
-    _M.common = require 'common'
+    common = require 'common'
 
 in your `.textadept/init.lua`
 
