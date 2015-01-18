@@ -47,14 +47,16 @@
   <div class="pilwrap">
     <a class="pilcrow" href="#section-1">&#182;</a>
   </div>
-  <p>The <strong>common.ack</strong> module provides an interface to the
+  
+<p>The <strong>common.ack</strong> module provides an interface to the
 <a href="http://betterthangrep.com/">ack</a> command line utility for searching
 in a directory of source files.<br>
-As an alternative Textadept&rsquo;s find in files can be used.
+As an alternative Textadept's find in files can be used.
 Ack runs on Windows as well, but since it is not a package
 repository away, Lua search is the default on Windows.<br>
 Using <code>Alt/⌘</code>+<code>L</code> and<code>Alt/⌘</code>+<code>A</code> you can toggle between the two search
 modes.</p>
+
 
 </td>
 <td class="code">
@@ -66,8 +68,10 @@ modes.</p>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-2">&#182;</a>
   </div>
-  <p>To start a search in the project&rsquo;s root directory we use the
+  
+<p>To start a search in the project's root directory we use the
 <a href="project.html">common.project</a> module.</p>
+
 
 </td>
 <td class="code">
@@ -79,7 +83,9 @@ modes.</p>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-3">&#182;</a>
   </div>
-  <h3>Fields</h3>
+  
+<h3>Fields</h3>
+
 
 </td>
 <td class="code">
@@ -91,12 +97,13 @@ modes.</p>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-4">&#182;</a>
   </div>
-  <p>Ack settings.
+  
+<p>Ack settings.
 They can be overwritten in your <code>init.lua</code> after loading the
 <em>common</em> module, for example:</p>
-
 <pre><code>_M.common.ack.OPTIONS = '--nocolor --nogroup --ignore-case'
 </code></pre>
+
 
 </td>
 <td class="code">
@@ -108,7 +115,9 @@ They can be overwritten in your <code>init.lua</code> after loading the
   <div class="pilwrap">
     <a class="pilcrow" href="#section-5">&#182;</a>
   </div>
-  <h2>Setup</h2>
+  
+<h2>Setup</h2>
+
 
 </td>
 <td class="code">
@@ -122,7 +131,9 @@ They can be overwritten in your <code>init.lua</code> after loading the
   <div class="pilwrap">
     <a class="pilcrow" href="#section-6">&#182;</a>
   </div>
-  <h2>Functions</h2>
+  
+<h2>Functions</h2>
+
 
 </td>
 <td class="code">
@@ -134,8 +145,10 @@ They can be overwritten in your <code>init.lua</code> after loading the
   <div class="pilwrap">
     <a class="pilcrow" href="#section-7">&#182;</a>
   </div>
-  <p>If the command entry is open and a search with ack or Lua
+  
+<p>If the command entry is open and a search with ack or Lua
 is active run the search after pressing enter.</p>
+
 
 </td>
 <td class="code">
@@ -170,7 +183,9 @@ is active run the search after pressing enter.</p>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-8">&#182;</a>
   </div>
-  <p>Switch the search mode in the command entry.</p>
+  
+<p>Switch the search mode in the command entry.</p>
+
 
 </td>
 <td class="code">
@@ -202,7 +217,9 @@ is active run the search after pressing enter.</p>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-9">&#182;</a>
   </div>
-  <p>Open command entry to enter search term.</p>
+  
+<p>Open command entry to enter search term.</p>
+
 
 </td>
 <td class="code">

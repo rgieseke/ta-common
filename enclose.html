@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>common/enclose.lua</title>
+  <title>enclose.lua</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="locco.css" />
 </head>
@@ -13,18 +13,17 @@
   Jump To &hellip;
   <div id="jump_wrapper">
   <div id="jump_page">
-  <a class="source" href="ack.html">common/ack.lua</a>
-  <a class="source" href="bracematching.html">common/bracematching.lua</a>
-  <a class="source" href="display_filename.html">common/display_filename.lua</a>
-  <a class="source" href="enclose.html">common/enclose.lua</a>
-  <a class="source" href="filename.html">common/filename.lua</a>
-  <a class="source" href="findall.html">common/findall.lua</a>
-  <a class="source" href="highlight.html">common/highlight.lua</a>
-  <a class="source" href="index.html">common/init.lua</a>
-  <a class="source" href="lastbuffer.html">common/lastbuffer.lua</a>
-  <a class="source" href="multiedit.html">common/multiedit.lua</a>
-  <a class="source" href="project.html">common/project.lua</a>
-  <a class="source" href="save_strips_ws.html">common/save_strips_ws.lua</a>
+  <a class="source" href="bracematching.html">bracematching.lua</a>
+  <a class="source" href="display_filename.html">display_filename.lua</a>
+  <a class="source" href="enclose.html">enclose.lua</a>
+  <a class="source" href="filename.html">filename.lua</a>
+  <a class="source" href="findall.html">findall.lua</a>
+  <a class="source" href="highlight.html">highlight.lua</a>
+  <a class="source" href="index.html">init.lua</a>
+  <a class="source" href="lastbuffer.html">lastbuffer.lua</a>
+  <a class="source" href="multiedit.html">multiedit.lua</a>
+  <a class="source" href="project.html">project.lua</a>
+  <a class="source" href="save_strips_ws.html">save_strips_ws.lua</a>
     </div>
   </div>
 </div>
@@ -34,7 +33,7 @@
         <tr>
           <th class="docs">
             <h1>
-              common/enclose.lua
+              enclose.lua
             </h1>
           </th>
           <th class="code">
@@ -47,8 +46,10 @@
   <div class="pilwrap">
     <a class="pilcrow" href="#section-1">&#182;</a>
   </div>
-  <p>This module adds functions for enclosing selections with a single key
+  
+<p>This module adds functions for enclosing selections with a single key
 and for inserting single chars with a short cut.</p>
+
 
 </td>
 <td class="code">
@@ -60,7 +61,9 @@ and for inserting single chars with a short cut.</p>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-2">&#182;</a>
   </div>
-  <h2>Setup</h2>
+  
+<h2>Setup</h2>
+
 
 </td>
 <td class="code">
@@ -75,7 +78,9 @@ and for inserting single chars with a short cut.</p>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-3">&#182;</a>
   </div>
-  <p>Table with char codes as indices.</p>
+  
+<p>Table with char codes as indices.</p>
+
 
 </td>
 <td class="code">
@@ -91,7 +96,9 @@ and for inserting single chars with a short cut.</p>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-4">&#182;</a>
   </div>
-  <h2>Commands</h2>
+  
+<h2>Commands</h2>
+
 
 </td>
 <td class="code">
@@ -103,10 +110,12 @@ and for inserting single chars with a short cut.</p>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-5">&#182;</a>
   </div>
-  <p>Enclose selected text.<br>
+  
+<p>Enclose selected text.<br>
 Parameters:<br>
 <em>left</em>: char on the left<br>
 <em>right</em>: char on the right</p>
+
 
 </td>
 <td class="code">
@@ -124,12 +133,14 @@ Parameters:<br>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-6">&#182;</a>
   </div>
-  <p>Encloses selected text and keeps the selection for another enclosure.
+  
+<p>Encloses selected text and keeps the selection for another enclosure.
 If nothing is selected, the char is inserted. Useful to avoid automatically
 matched braces.<br>
 Parameters:<br>
 <em>left</em>: char on the left<br>
 <em>right</em>: char on the right</p>
+
 
 </td>
 <td class="code">
@@ -140,7 +151,7 @@ Parameters:<br>
   <span class="k">else</span>
     start = buffer.anchor
     stop = buffer.current_pos
-    <span class="k">if</span> start > stop <span class="k">then</span>
+    <span class="k">if</span> start &gt; stop <span class="k">then</span>
       start, stop = stop, start
     <span class="k">end</span>
     add_start = #left
