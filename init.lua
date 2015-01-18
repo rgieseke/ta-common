@@ -21,14 +21,11 @@
 -- Put
 --     require 'common'
 -- in your `.textadept/init.lua`.<br>
--- The submodules can also be used independently:
---     require 'common.ack'
 
 local keys = keys
 
 local M = {}
 
-M.ack = require 'common.ack'
 M.bracematching = require 'common.bracematching'
 M.display_filename = require 'common.display_filename'
 M.enclose = require 'common.enclose'
