@@ -36,6 +36,7 @@ M.multiedit = require 'common.multiedit'
 M.project = require 'common.project'
 require 'common.save_strips_ws'
 
+--
 -- ## Key commands
 
 -- Snapopen.<br>
@@ -56,16 +57,10 @@ end
 keys[OSX and 'cmO' or 'caO'] = M.filename.insert_filename
 
 -- Save and reset Lua state: `F9`
-keys['f9'] = { function()
+keys['f9'] = function()
   io.save_file()
   reset()
-end }
-
--- Open command entry for ack/Lua search: `Ctrl`+`Alt/⌘`+`K`<br>
--- In the command entry, switch to Lua find in files, `Ctrl`+`L`,
--- or  ack search, `Ctrl`+`K`.
-keys.cmk = M.ack.search_entry
-
+end
 
 -- Go to the matching brace: `Ctrl`+`M`
 keys.cm = M.bracematching.match_brace
@@ -77,11 +72,6 @@ keys[OSX and 'cmM' or 'caM'] = M.multiedit.select_all
 
 -- Switch to last buffer: `Ctrl`+`2`
 keys.c2 = M.lastbuffer.last_buffer
-
--- Switch buffer dialog:<br>
--- `Ctrl`+`B` or `⌘`+`B` (OS X)<br>
--- See [display_filename.lua](display_filename.html).
---keys[OSX and 'mb' or 'ab'] = M.display_filename.switch_buffer
 
 -- Enclose selection or insert chars: `'` , `"`, `(`, `[`, `{`
 keys["'"] = { M.enclose.enclose_selection, "'", "'" }
