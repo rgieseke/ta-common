@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>common/display_filename.lua</title>
+  <title>display_filename.lua</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="locco.css" />
 </head>
@@ -13,18 +13,17 @@
   Jump To &hellip;
   <div id="jump_wrapper">
   <div id="jump_page">
-  <a class="source" href="ack.html">common/ack.lua</a>
-  <a class="source" href="bracematching.html">common/bracematching.lua</a>
-  <a class="source" href="display_filename.html">common/display_filename.lua</a>
-  <a class="source" href="enclose.html">common/enclose.lua</a>
-  <a class="source" href="filename.html">common/filename.lua</a>
-  <a class="source" href="findall.html">common/findall.lua</a>
-  <a class="source" href="highlight.html">common/highlight.lua</a>
-  <a class="source" href="index.html">common/init.lua</a>
-  <a class="source" href="lastbuffer.html">common/lastbuffer.lua</a>
-  <a class="source" href="multiedit.html">common/multiedit.lua</a>
-  <a class="source" href="project.html">common/project.lua</a>
-  <a class="source" href="save_strips_ws.html">common/save_strips_ws.lua</a>
+  <a class="source" href="bracematching.html">bracematching.lua</a>
+  <a class="source" href="display_filename.html">display_filename.lua</a>
+  <a class="source" href="enclose.html">enclose.lua</a>
+  <a class="source" href="filename.html">filename.lua</a>
+  <a class="source" href="findall.html">findall.lua</a>
+  <a class="source" href="highlight.html">highlight.lua</a>
+  <a class="source" href="index.html">init.lua</a>
+  <a class="source" href="lastbuffer.html">lastbuffer.lua</a>
+  <a class="source" href="multiedit.html">multiedit.lua</a>
+  <a class="source" href="project.html">project.lua</a>
+  <a class="source" href="save_strips_ws.html">save_strips_ws.lua</a>
     </div>
   </div>
 </div>
@@ -34,7 +33,7 @@
         <tr>
           <th class="docs">
             <h1>
-              common/display_filename.lua
+              display_filename.lua
             </h1>
           </th>
           <th class="code">
@@ -47,33 +46,26 @@
   <div class="pilwrap">
     <a class="pilcrow" href="#section-1">&#182;</a>
   </div>
-  <p>Shorten display filenames in buffer title and switch buffer dialog.
+  
+<p>Shorten display filenames in buffer title and switch buffer dialog.
 On Windows</p>
-
 <pre><code>C:\Documents and Settings\username\Desktop\...
 </code></pre>
-
 <p>is replaced with</p>
-
 <pre><code>Desktop\...,
 </code></pre>
-
 <p>on Max OS X and Linux</p>
-
 <pre><code>/home/username/..
 </code></pre>
-
 <p>or</p>
-
 <pre><code>/Users/username/...
 </code></pre>
-
 <p>with</p>
-
 <pre><code>~/...
 </code></pre>
 
-<p>Modified from Textadept&rsquo;s <code>core.ui. module.</code></p>
+<p>Modified from Textadept's `core.ui. module.</p>
+
 
 </td>
 <td class="code">
@@ -85,7 +77,9 @@ On Windows</p>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-2">&#182;</a>
   </div>
-  <h2>Fields</h2>
+  
+<h2>Fields</h2>
+
 
 </td>
 <td class="code">
@@ -98,7 +92,9 @@ On Windows</p>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-3">&#182;</a>
   </div>
-  <p>Read environment variable.</p>
+  
+<p>Read environment variable.</p>
+
 
 </td>
 <td class="code">
@@ -116,7 +112,9 @@ On Windows</p>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-4">&#182;</a>
   </div>
-  <h2>Commands</h2>
+  
+<h2>Commands</h2>
+
 
 </td>
 <td class="code">
@@ -128,9 +126,11 @@ On Windows</p>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-5">&#182;</a>
   </div>
-  <p>Sets the title of the Textadept window to the buffer&rsquo;s filename.
+  
+<p>Sets the title of the Textadept window to the buffer's filename.
 Parameter:<br>
 <em>buffer</em>: The currently focused buffer.</p>
+
 
 </td>
 <td class="code">
@@ -148,7 +148,9 @@ Parameter:<br>
   <div class="pilwrap">
     <a class="pilcrow" href="#section-6">&#182;</a>
   </div>
-  <p>Connect to events that change the title.</p>
+  
+<p>Connect to events that change the title.</p>
+
 
 </td>
 <td class="code">
