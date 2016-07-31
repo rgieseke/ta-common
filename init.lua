@@ -44,14 +44,20 @@ require 'common.save_strips_ws'
 -- Textadept home: `Alt/⌘`+`Shift`+`U`<br>
 -- User home : `Alt/⌘`+`U`<br>
 -- Current project `Alt/⌘`+`P`<br>
-keys[OSX and 'mU' or 'aU'] = { io.snapopen, _HOME, { '.+%.luadoc',
-              folders = { 'images', 'doc', 'manual', '%.hg', '%.git' } } }
-keys[OSX and 'mu' or 'au'] = { io.snapopen, _USERHOME,
-              { folders = { '%.hg', '%.git' } } }
-keys[OSX and 'mp' or 'ap'] = function ()
-  local root = _M.common.project.root()
-  io.snapopen(root, { 'pyc$'})
-end
+keys[OSX and 'mU' or 'aU'] = function()
+  io.quick_open(
+    _HOME,
+    {
+      '.+%.luadoc', '.hgtags', 'hg_archival.txt',
+      folders = {'images', 'doc', 'manual', '%.hg'}
+    })
+  end
+keys[OSX and 'mu' or 'au'] = function()
+  io.quick_open(
+    _USERHOME,
+    { folders = { '%.hg', '%.git' } }
+  )
+  end
 
 -- Insert a filename: `Ctrl`+`Alt/⌘`+`Shift`+`O`
 keys[OSX and 'cmO' or 'caO'] = M.filename.insert_filename
@@ -74,18 +80,17 @@ keys[OSX and 'cmM' or 'caM'] = M.multiedit.select_all
 keys.c2 = M.lastbuffer.last_buffer
 
 -- Enclose selection or insert chars: `'` , `"`, `(`, `[`, `{`
-keys["'"] = { M.enclose.enclose_selection, "'", "'" }
-keys['"'] = { M.enclose.enclose_selection, '"', '"' }
-keys['('] = { M.enclose.enclose_selection, '(', ')' }
-keys['['] = { M.enclose.enclose_selection, '[', ']' }
-keys['{'] = { M.enclose.enclose_selection, '{', '}' }
+keys["'"] = function() M.enclose.enclose_selection("'", "'") end
+keys['"'] = function() M.enclose.enclose_selection('"', '"') end
+keys['('] = function() M.enclose.enclose_selection('(', ')') end
+keys['['] = function() M.enclose.enclose_selection('[', ']') end
+keys['{'] = function() M.enclose.enclose_selection('{', '}') end
 
 -- Enclose selection and keep selection or insert single char
 -- if nothing is selected: `Ctrl`+`Alt/⌘`+`'` or `"` or `(` or `[` or `{`
-keys[OSX and "cm'" or "ca'"] = { M.enclose.paste_or_grow_enclose, "'", "'" }
-keys[OSX and 'cm"' or 'ca"'] = { M.enclose.paste_or_grow_enclose, '"', '"' }
-keys[OSX and 'cm(' or 'ca('] = { M.enclose.paste_or_grow_enclose, '(', ')' }
-keys[OSX and 'cm[' or 'ca['] = { M.enclose.paste_or_grow_enclose, '[', ']' }
-keys[OSX and 'cm{' or 'ca{'] = { M.enclose.paste_or_grow_enclose, '{', '}' }
-
+keys[OSX and "cm'" or "ca'"] = function() M.enclose.paste_or_grow_enclose("'", "'") end
+keys[OSX and 'cm"' or 'ca"'] = function() M.enclose.paste_or_grow_enclose('"', '"') end
+keys[OSX and 'cm(' or 'ca('] = function() M.enclose.paste_or_grow_enclose('(', ')') end
+keys[OSX and 'cm[' or 'ca['] = function() M.enclose.paste_or_grow_enclose('[', ']') end
+keys[OSX and 'cm{' or 'ca{'] = function() M.enclose.paste_or_grow_enclose('{', '}') end
 return M
