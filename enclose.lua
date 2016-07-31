@@ -23,7 +23,9 @@ braces = { -- () [] {}
 -- _right_: char on the right
 function M.enclose_selection(left, right)
   if buffer:get_sel_text() == '' then
-    return false
+    buffer.add_text(left)
+    buffer.add_text(right)
+    buffer.char_left()
   else
     m_editing.enclose(left, right)
   end
