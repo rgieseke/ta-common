@@ -16,7 +16,7 @@ events.connect(events.BUFFER_BEFORE_SWITCH, function()
 -- Switch to last buffer.
 function M.last_buffer()
   if last_buffer and _BUFFERS[last_buffer] then
-    view:goto_buffer(_BUFFERS[last_buffer])
+    view:goto_buffer(last_buffer)
   end
 end
 
