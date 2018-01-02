@@ -26,7 +26,6 @@ local keys = keys
 
 local M = {}
 
-M.bracematching = require 'common.bracematching'
 M.display_filename = require 'common.display_filename'
 M.enclose = require 'common.enclose'
 M.filename = require 'common.filename'
@@ -69,7 +68,7 @@ keys['f9'] = function()
 end
 
 -- Go to the matching brace: `Ctrl`+`M`
-keys.cm = M.bracematching.match_brace
+keys.cm = textadept.editing.select_enclosed
 
 -- Add another cursor position: `Ctrl`+`Shift`+`M`<br>
 -- Select all occurrences of a word: `Ctrl`+`Alt/⌘`+`Shift`+`M`
