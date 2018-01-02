@@ -13,7 +13,6 @@
   Jump To &hellip;
   <div id="jump_wrapper">
   <div id="jump_page">
-  <a class="source" href="bracematching.html">bracematching.lua</a>
   <a class="source" href="display_filename.html">display_filename.lua</a>
   <a class="source" href="enclose.html">enclose.lua</a>
   <a class="source" href="filename.html">filename.lua</a>
@@ -121,7 +120,9 @@ Parameters:<br>
 <td class="code">
   <div class="highlight"><pre><span class="k">function</span> <span class="nf">M.enclose_selection</span>(left, right)
   <span class="k">if</span> buffer:get_sel_text() == <span class="s">''</span> <span class="k">then</span>
-    <span class="k">return</span> <span class="k">false</span>
+    buffer.add_text(left)
+    buffer.add_text(right)
+    buffer.char_left()
   <span class="k">else</span>
     m_editing.enclose(left, right)
   <span class="k">end</span>

@@ -13,7 +13,6 @@
   Jump To &hellip;
   <div id="jump_wrapper">
   <div id="jump_page">
-  <a class="source" href="bracematching.html">bracematching.lua</a>
   <a class="source" href="display_filename.html">display_filename.lua</a>
   <a class="source" href="enclose.html">enclose.lua</a>
   <a class="source" href="filename.html">filename.lua</a>
@@ -81,7 +80,6 @@ git clone https://github.com/rgieseke/ta-common.git common
 
 <span class="k">local</span> M = {}
 
-M.bracematching = <span class="nt">require</span> <span class="s">'common.bracematching'</span>
 M.display_filename = <span class="nt">require</span> <span class="s">'common.display_filename'</span>
 M.enclose = <span class="nt">require</span> <span class="s">'common.enclose'</span>
 M.filename = <span class="nt">require</span> <span class="s">'common.filename'</span>
@@ -122,14 +120,20 @@ Current project <code>Alt/⌘</code>+<code>P</code><br></p>
 
 </td>
 <td class="code">
-  <div class="highlight"><pre>keys[OSX <span class="o">and</span> <span class="s">'mU'</span> <span class="o">or</span> <span class="s">'aU'</span>] = { io.snapopen, _HOME, { <span class="s">'.+&#37;.luadoc'</span>,
-              folders = { <span class="s">'images'</span>, <span class="s">'doc'</span>, <span class="s">'manual'</span>, <span class="s">'&#37;.hg'</span>, <span class="s">'&#37;.git'</span> } } }
-keys[OSX <span class="o">and</span> <span class="s">'mu'</span> <span class="o">or</span> <span class="s">'au'</span>] = { io.snapopen, _USERHOME,
-              { folders = { <span class="s">'&#37;.hg'</span>, <span class="s">'&#37;.git'</span> } } }
-keys[OSX <span class="o">and</span> <span class="s">'mp'</span> <span class="o">or</span> <span class="s">'ap'</span>] = <span class="k">function</span> ()
-  <span class="k">local</span> root = _M.common.project.root()
-  io.snapopen(root, { <span class="s">'pyc$'</span>})
-<span class="k">end</span>
+  <div class="highlight"><pre>keys[OSX <span class="o">and</span> <span class="s">'mU'</span> <span class="o">or</span> <span class="s">'aU'</span>] = <span class="k">function</span>()
+  io.quick_open(
+    _HOME,
+    {
+      <span class="s">'.+&#37;.luadoc'</span>, <span class="s">'.hgtags'</span>, <span class="s">'hg_archival.txt'</span>,
+      folders = {<span class="s">'images'</span>, <span class="s">'doc'</span>, <span class="s">'manual'</span>, <span class="s">'&#37;.hg'</span>}
+    })
+  <span class="k">end</span>
+keys[OSX <span class="o">and</span> <span class="s">'mu'</span> <span class="o">or</span> <span class="s">'au'</span>] = <span class="k">function</span>()
+  io.quick_open(
+    _USERHOME,
+    { folders = { <span class="s">'&#37;.hg'</span>, <span class="s">'&#37;.git'</span> } }
+  )
+  <span class="k">end</span>
 </pre></div>
 </td>
 </tr><tr id="section-4">
@@ -174,7 +178,7 @@ keys[OSX <span class="o">and</span> <span class="s">'mp'</span> <span class="o">
 
 </td>
 <td class="code">
-  <div class="highlight"><pre>keys.cm = M.bracematching.match_brace
+  <div class="highlight"><pre>keys.cm = textadept.editing.select_enclosed
 </pre></div>
 </td>
 </tr><tr id="section-7">
@@ -218,11 +222,11 @@ keys[OSX <span class="o">and</span> <span class="s">'cmM'</span> <span class="o"
 
 </td>
 <td class="code">
-  <div class="highlight"><pre>keys[<span class="s">"'"</span>] = { M.enclose.enclose_selection, <span class="s">"'"</span>, <span class="s">"'"</span> }
-keys[<span class="s">'"'</span>] = { M.enclose.enclose_selection, <span class="s">'"'</span>, <span class="s">'"'</span> }
-keys[<span class="s">'('</span>] = { M.enclose.enclose_selection, <span class="s">'('</span>, <span class="s">')'</span> }
-keys[<span class="s">'['</span>] = { M.enclose.enclose_selection, <span class="s">'['</span>, <span class="s">']'</span> }
-keys[<span class="s">'{'</span>] = { M.enclose.enclose_selection, <span class="s">'{'</span>, <span class="s">'}'</span> }
+  <div class="highlight"><pre>keys[<span class="s">"'"</span>] = <span class="k">function</span>() M.enclose.enclose_selection(<span class="s">"'"</span>, <span class="s">"'"</span>) <span class="k">end</span>
+keys[<span class="s">'"'</span>] = <span class="k">function</span>() M.enclose.enclose_selection(<span class="s">'"'</span>, <span class="s">'"'</span>) <span class="k">end</span>
+keys[<span class="s">'('</span>] = <span class="k">function</span>() M.enclose.enclose_selection(<span class="s">'('</span>, <span class="s">')'</span>) <span class="k">end</span>
+keys[<span class="s">'['</span>] = <span class="k">function</span>() M.enclose.enclose_selection(<span class="s">'['</span>, <span class="s">']'</span>) <span class="k">end</span>
+keys[<span class="s">'{'</span>] = <span class="k">function</span>() M.enclose.enclose_selection(<span class="s">'{'</span>, <span class="s">'}'</span>) <span class="k">end</span>
 </pre></div>
 </td>
 </tr><tr id="section-10">
@@ -237,12 +241,11 @@ if nothing is selected: <code>Ctrl</code>+<code>Alt/⌘</code>+<code>'</code> or
 
 </td>
 <td class="code">
-  <div class="highlight"><pre>keys[OSX <span class="o">and</span> <span class="s">"cm'"</span> <span class="o">or</span> <span class="s">"ca'"</span>] = { M.enclose.paste_or_grow_enclose, <span class="s">"'"</span>, <span class="s">"'"</span> }
-keys[OSX <span class="o">and</span> <span class="s">'cm"'</span> <span class="o">or</span> <span class="s">'ca"'</span>] = { M.enclose.paste_or_grow_enclose, <span class="s">'"'</span>, <span class="s">'"'</span> }
-keys[OSX <span class="o">and</span> <span class="s">'cm('</span> <span class="o">or</span> <span class="s">'ca('</span>] = { M.enclose.paste_or_grow_enclose, <span class="s">'('</span>, <span class="s">')'</span> }
-keys[OSX <span class="o">and</span> <span class="s">'cm['</span> <span class="o">or</span> <span class="s">'ca['</span>] = { M.enclose.paste_or_grow_enclose, <span class="s">'['</span>, <span class="s">']'</span> }
-keys[OSX <span class="o">and</span> <span class="s">'cm{'</span> <span class="o">or</span> <span class="s">'ca{'</span>] = { M.enclose.paste_or_grow_enclose, <span class="s">'{'</span>, <span class="s">'}'</span> }
-
+  <div class="highlight"><pre>keys[OSX <span class="o">and</span> <span class="s">"cm'"</span> <span class="o">or</span> <span class="s">"ca'"</span>] = <span class="k">function</span>() M.enclose.paste_or_grow_enclose(<span class="s">"'"</span>, <span class="s">"'"</span>) <span class="k">end</span>
+keys[OSX <span class="o">and</span> <span class="s">'cm"'</span> <span class="o">or</span> <span class="s">'ca"'</span>] = <span class="k">function</span>() M.enclose.paste_or_grow_enclose(<span class="s">'"'</span>, <span class="s">'"'</span>) <span class="k">end</span>
+keys[OSX <span class="o">and</span> <span class="s">'cm('</span> <span class="o">or</span> <span class="s">'ca('</span>] = <span class="k">function</span>() M.enclose.paste_or_grow_enclose(<span class="s">'('</span>, <span class="s">')'</span>) <span class="k">end</span>
+keys[OSX <span class="o">and</span> <span class="s">'cm['</span> <span class="o">or</span> <span class="s">'ca['</span>] = <span class="k">function</span>() M.enclose.paste_or_grow_enclose(<span class="s">'['</span>, <span class="s">']'</span>) <span class="k">end</span>
+keys[OSX <span class="o">and</span> <span class="s">'cm{'</span> <span class="o">or</span> <span class="s">'ca{'</span>] = <span class="k">function</span>() M.enclose.paste_or_grow_enclose(<span class="s">'{'</span>, <span class="s">'}'</span>) <span class="k">end</span>
 <span class="k">return</span> M
 </pre></div>
 </td>

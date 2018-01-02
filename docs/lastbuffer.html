@@ -13,7 +13,6 @@
   Jump To &hellip;
   <div id="jump_wrapper">
   <div id="jump_page">
-  <a class="source" href="bracematching.html">bracematching.lua</a>
   <a class="source" href="display_filename.html">display_filename.lua</a>
   <a class="source" href="enclose.html">enclose.lua</a>
   <a class="source" href="filename.html">filename.lua</a>
@@ -103,7 +102,7 @@
 <td class="code">
   <div class="highlight"><pre><span class="k">function</span> <span class="nf">M.last_buffer</span>()
   <span class="k">if</span> last_buffer <span class="o">and</span> _BUFFERS[last_buffer] <span class="k">then</span>
-    view:goto_buffer(_BUFFERS[last_buffer])
+    view:goto_buffer(last_buffer)
   <span class="k">end</span>
 <span class="k">end</span>
 
