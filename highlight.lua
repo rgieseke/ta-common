@@ -6,12 +6,12 @@ events.connect(events.INITIALIZED, function()
 
   local function active()
     local buffer = buffer
-    buffer.style_back[33] = current_line_back
+    buffer.style_back[_SCINTILLA.constants.STYLE_LINENUMBER] = current_line_back
   end
 
   local function inactive()
     local buffer = buffer
-    buffer.style_back[33] = line_number_back
+    buffer.style_back[_SCINTILLA.constants.STYLE_LINENUMBER] = line_number_back
   end
 
   events.connect(events.VIEW_BEFORE_SWITCH, function() inactive() end)
