@@ -43,7 +43,7 @@ require 'common.save_strips_ws'
 -- Textadept home: `Alt/⌘`+`Shift`+`U`<br>
 -- User home : `Alt/⌘`+`U`<br>
 -- Current project `Alt/⌘`+`P`<br>
-keys[OSX and 'mU' or 'aU'] = function()
+keys[OSX and 'cmd+shift+u' or 'alt+U'] = function()
   io.quick_open(
     _HOME,
     {
@@ -51,7 +51,7 @@ keys[OSX and 'mU' or 'aU'] = function()
       folders = {'images', 'doc', 'manual', '%.hg'}
     })
   end
-keys[OSX and 'mu' or 'au'] = function()
+keys[OSX and 'cmd+u' or 'alt+u'] = function()
   io.quick_open(
     _USERHOME,
     { folders = { '%.hg', '%.git' } }
@@ -59,24 +59,23 @@ keys[OSX and 'mu' or 'au'] = function()
   end
 
 -- Insert a filename: `Ctrl`+`Alt/⌘`+`Shift`+`O`
-keys[OSX and 'cmO' or 'caO'] = M.filename.insert_filename
+keys[OSX and 'cmd+ctrl+shift+o' or 'ctrl+alt+shift+o'] = M.filename.insert_filename
 
 -- Save and reset Lua state: `F9`
 keys['f9'] = function()
-  io.save_file()
   reset()
 end
 
 -- Go to the matching brace: `Ctrl`+`M`
-keys.cm = textadept.editing.select_enclosed
+--keys["ctr"].cm = textadept.editing.select_enclosed
 
 -- Add another cursor position: `Ctrl`+`Shift`+`M`<br>
 -- Select all occurrences of a word: `Ctrl`+`Alt/⌘`+`Shift`+`M`
-keys.cM = M.multiedit.add_position
-keys[OSX and 'cmM' or 'caM'] = M.multiedit.select_all
+--keys.cM = M.multiedit.add_position
+--keys[OSX and 'cmM' or 'caM'] = M.multiedit.select_all
 
 -- Switch to last buffer: `Ctrl`+`2`
-keys.c2 = M.lastbuffer.last_buffer
+keys["ctrl+2"] = M.lastbuffer.last_buffer
 
 -- Enclose selection or insert chars: `'` , `"`, `(`, `[`, `{`
 keys["'"] = function() M.enclose.enclose_selection("'", "'") end
@@ -87,9 +86,9 @@ keys['{'] = function() M.enclose.enclose_selection('{', '}') end
 
 -- Enclose selection and keep selection or insert single char
 -- if nothing is selected: `Ctrl`+`Alt/⌘`+`'` or `"` or `(` or `[` or `{`
-keys[OSX and "cm'" or "ca'"] = function() M.enclose.paste_or_grow_enclose("'", "'") end
-keys[OSX and 'cm"' or 'ca"'] = function() M.enclose.paste_or_grow_enclose('"', '"') end
-keys[OSX and 'cm(' or 'ca('] = function() M.enclose.paste_or_grow_enclose('(', ')') end
-keys[OSX and 'cm[' or 'ca['] = function() M.enclose.paste_or_grow_enclose('[', ']') end
-keys[OSX and 'cm{' or 'ca{'] = function() M.enclose.paste_or_grow_enclose('{', '}') end
+keys[OSX and "ctrl+cmd+'" or "ctrl+alt+'"] = function() M.enclose.paste_or_grow_enclose("'", "'") end
+keys[OSX and 'ctrl+cmd+"' or 'ctrl+alt+"'] = function() M.enclose.paste_or_grow_enclose('"', '"') end
+keys[OSX and 'ctrl+cmd+(' or 'ctrl+alt+('] = function() M.enclose.paste_or_grow_enclose('(', ')') end
+keys[OSX and 'ctrl+cmd+[' or 'ctrl+alt+['] = function() M.enclose.paste_or_grow_enclose('[', ']') end
+keys[OSX and 'ctrl+cmd+{' or 'ctrl+alt+{'] = function() M.enclose.paste_or_grow_enclose('{', '}') end
 return M
