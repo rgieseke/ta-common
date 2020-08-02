@@ -43,7 +43,7 @@ require 'common.save_strips_ws'
 -- Textadept home: `Alt/⌘`+`Shift`+`U`<br>
 -- User home : `Alt/⌘`+`U`<br>
 -- Current project `Alt/⌘`+`P`<br>
-keys[OSX and 'cmd+shift+u' or 'alt+U'] = function()
+keys[OSX and 'cmd+U' or 'alt+U'] = function()
   io.quick_open(
     _HOME,
     {
@@ -59,20 +59,12 @@ keys[OSX and 'cmd+u' or 'alt+u'] = function()
   end
 
 -- Insert a filename: `Ctrl`+`Alt/⌘`+`Shift`+`O`
-keys[OSX and 'cmd+ctrl+shift+o' or 'ctrl+alt+shift+o'] = M.filename.insert_filename
+keys[OSX and 'cmd+ctrl+O' or 'ctrl+alt+O'] = M.filename.insert_filename
 
 -- Save and reset Lua state: `F9`
 keys['f9'] = function()
   reset()
 end
-
--- Go to the matching brace: `Ctrl`+`M`
---keys["ctr"].cm = textadept.editing.select_enclosed
-
--- Add another cursor position: `Ctrl`+`Shift`+`M`<br>
--- Select all occurrences of a word: `Ctrl`+`Alt/⌘`+`Shift`+`M`
---keys.cM = M.multiedit.add_position
---keys[OSX and 'cmM' or 'caM'] = M.multiedit.select_all
 
 -- Switch to last buffer: `Ctrl`+`2`
 keys["ctrl+2"] = M.lastbuffer.last_buffer
