@@ -54,11 +54,9 @@ events.connect('save_point_left',
 events.connect('buffer_after_switch',
   function() -- updates titlebar and statusbar
     set_title(buffer)
-    events.emit('update_ui')
   end)
 
 events.connect('view_after_switch',
   function() -- updates titlebar and statusbar
     set_title(buffer)
-    events.emit('update_ui')
   end)
