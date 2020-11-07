@@ -31,7 +31,6 @@ M.enclose = require 'common.enclose'
 M.filename = require 'common.filename'
 if not CURSES then require 'common.highlight' end
 M.lastbuffer = require 'common.lastbuffer'
-M.multiedit = require 'common.multiedit'
 M.project = require 'common.project'
 require 'common.save_strips_ws'
 
@@ -84,3 +83,6 @@ keys[OSX and 'ctrl+cmd+(' or 'ctrl+alt+('] = function() M.enclose.paste_or_grow_
 keys[OSX and 'ctrl+cmd+[' or 'ctrl+alt+['] = function() M.enclose.paste_or_grow_enclose('[', ']') end
 keys[OSX and 'ctrl+cmd+{' or 'ctrl+alt+{'] = function() M.enclose.paste_or_grow_enclose('{', '}') end
 return M
+
+-- Select all instances of current word.
+keys['ctrl+alt+D'] = function() textadept.editing.select_word(true) end
