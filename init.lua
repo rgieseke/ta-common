@@ -82,7 +82,8 @@ keys[OSX and 'ctrl+cmd+"' or 'ctrl+alt+"'] = function() M.enclose.paste_or_grow_
 keys[OSX and 'ctrl+cmd+(' or 'ctrl+alt+('] = function() M.enclose.paste_or_grow_enclose('(', ')') end
 keys[OSX and 'ctrl+cmd+[' or 'ctrl+alt+['] = function() M.enclose.paste_or_grow_enclose('[', ']') end
 keys[OSX and 'ctrl+cmd+{' or 'ctrl+alt+{'] = function() M.enclose.paste_or_grow_enclose('{', '}') end
-return M
 
 -- Select all instances of current word.
 keys['ctrl+alt+D'] = function() textadept.editing.select_word(true) end
+
+return M
