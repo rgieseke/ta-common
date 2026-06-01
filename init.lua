@@ -29,7 +29,7 @@ local M = {}
 M.display_filename = require 'common.display_filename'
 M.enclose = require 'common.enclose'
 M.filename = require 'common.filename'
-if not CURSES then require 'common.highlight' end
+--if not CURSES then require 'common.highlight' end
 M.lastbuffer = require 'common.lastbuffer'
 M.project = require 'common.project'
 require 'common.save_strips_ws'
@@ -42,7 +42,7 @@ require 'common.save_strips_ws'
 -- Textadept home: `Alt/⌘`+`Shift`+`U`<br>
 -- User home : `Alt/⌘`+`U`<br>
 -- Current project `Alt/⌘`+`P`<br>
-keys[OSX and 'cmd+U' or 'alt+U'] = function()
+keys[os == 'macos' and 'cmd+U' or 'alt+U'] = function()
   io.quick_open(
     _HOME,
     {
@@ -50,7 +50,7 @@ keys[OSX and 'cmd+U' or 'alt+U'] = function()
       folders = {'images', 'doc', 'manual', '%.hg'}
     })
   end
-keys[OSX and 'cmd+u' or 'alt+u'] = function()
+keys[os == 'macos' and 'cmd+u' or 'alt+u'] = function()
   io.quick_open(
     _USERHOME,
     { folders = { '%.hg', '%.git' } }
@@ -58,7 +58,7 @@ keys[OSX and 'cmd+u' or 'alt+u'] = function()
   end
 
 -- Insert a filename: `Ctrl`+`Alt/⌘`+`Shift`+`O`
-keys[OSX and 'cmd+ctrl+O' or 'ctrl+alt+O'] = M.filename.insert_filename
+keys[os == 'macos' and 'cmd+ctrl+O' or 'ctrl+alt+O'] = M.filename.insert_filename
 
 -- Save and reset Lua state: `F9`
 keys['f9'] = function()
@@ -77,11 +77,11 @@ keys['{'] = function() M.enclose.enclose_selection('{', '}') end
 
 -- Enclose selection and keep selection or insert single char
 -- if nothing is selected: `Ctrl`+`Alt/⌘`+`'` or `"` or `(` or `[` or `{`
-keys[OSX and "ctrl+cmd+'" or "ctrl+alt+'"] = function() M.enclose.paste_or_grow_enclose("'", "'") end
-keys[OSX and 'ctrl+cmd+"' or 'ctrl+alt+"'] = function() M.enclose.paste_or_grow_enclose('"', '"') end
-keys[OSX and 'ctrl+cmd+(' or 'ctrl+alt+('] = function() M.enclose.paste_or_grow_enclose('(', ')') end
-keys[OSX and 'ctrl+cmd+[' or 'ctrl+alt+['] = function() M.enclose.paste_or_grow_enclose('[', ']') end
-keys[OSX and 'ctrl+cmd+{' or 'ctrl+alt+{'] = function() M.enclose.paste_or_grow_enclose('{', '}') end
+keys[os == 'macos' and "ctrl+cmd+'" or "ctrl+alt+'"] = function() M.enclose.paste_or_grow_enclose("'", "'") end
+keys[os == 'macos' and 'ctrl+cmd+"' or 'ctrl+alt+"'] = function() M.enclose.paste_or_grow_enclose('"', '"') end
+keys[os == 'macos' and 'ctrl+cmd+(' or 'ctrl+alt+('] = function() M.enclose.paste_or_grow_enclose('(', ')') end
+keys[os == 'macos' and 'ctrl+cmd+[' or 'ctrl+alt+['] = function() M.enclose.paste_or_grow_enclose('[', ']') end
+keys[os == 'macos' and 'ctrl+cmd+{' or 'ctrl+alt+{'] = function() M.enclose.paste_or_grow_enclose('{', '}') end
 
 -- Select all instances of current word.
 keys['ctrl+alt+D'] = function() textadept.editing.select_word(true) end
