@@ -17,7 +17,7 @@
 local pattern, replacement
 
 -- Read environment variable.
-if WIN32 then
+if OS == 'windows' then
   pattern = os.getenv('USERPROFILE')..'\\'
   replacement = ''
 else
